@@ -125,8 +125,17 @@ export default function App() {
           {/* Sections */}
           <Section id="profile" title="Profile">
             <p className="leading-relaxed indent-8 mb-2">
-              I am a highly motivated and results-driven Computer Engineer with a Master's degree, specializing in cutting-edge technology and software development. Currently, I am proud to be part of the consulting team at Performance Technologies S.A., where I excel as a skilled ServiceNow Developer.
-            </p>
+             I am a highly motivated and results-driven Computer Engineer with a Master's degree, specializing in cutting-edge technology and software development. Currently, I am proud to be part of the consulting team at{" "}
+                <a
+                  href="https://www.performance.gr/" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 underline"
+                 >
+                 Performance Technologies S.A.
+                </a>
+  , where I excel as a skilled ServiceNow Developer.
+</p>
            <p className="leading-relaxed indent-8 mb-2">
               My passion for technology and innovation has driven my academic and professional journey. My educational background in Computer Engineering has equipped me with a comprehensive understanding of software design, system architecture, and programming languages.
             </p>
