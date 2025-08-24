@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sun, Moon, Download, ChevronDown } from "lucide-react";
-import profilePic from "./unnamed (2).jpg"; // Your local profile picture
+import { Download, ChevronDown } from "lucide-react";
+import profilePic from "./unnamed (2).jpg";
 
 export default function App() {
-  const [dark, setDark] = useState(false);
   const [openSection, setOpenSection] = useState("profile");
 
   const sections = [
@@ -26,15 +25,17 @@ export default function App() {
     const isOpen = openSection === id;
     return (
       <section id={id} className="scroll-mt-28 mb-6">
-        <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm">
+        <div className="bg-white border border-gray-200 rounded-2xl shadow-sm">
           <button
-            className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left bg-gray-50/70 dark:bg-gray-900/40 rounded-2xl"
+            className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left bg-gray-50 rounded-2xl"
             onClick={() => setOpenSection(isOpen ? null : id)}
             aria-expanded={isOpen}
             aria-controls={id + "-panel"}
           >
             <h3 className="text-lg font-semibold">{title}</h3>
-            <ChevronDown className={"transition-transform " + (isOpen ? "rotate-180" : "rotate-0")} />
+            <ChevronDown
+              className={"transition-transform " + (isOpen ? "rotate-180" : "rotate-0")}
+            />
           </button>
           <AnimatePresence initial={false}>
             {isOpen && (
@@ -56,10 +57,10 @@ export default function App() {
   };
 
   return (
-    <div className={dark ? "dark" : ""}>
-      <div className="min-h-screen bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-100">
+    <div>
+      <div className="min-h-screen bg-gray-50 text-gray-800">
         {/* Sticky Navbar */}
-        <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur supports-[backdrop-filter]:bg-white/60 supports-[backdrop-filter]:dark:bg-gray-900/60 border-b border-gray-200 dark:border-gray-800">
+        <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200">
           <div className="max-w-4xl mx-auto flex items-center justify-between px-4 py-3">
             <div className="font-bold">Panagiotis Gkantzos</div>
             <div className="flex items-center gap-3">
@@ -73,22 +74,10 @@ export default function App() {
                   {s.label}
                 </a>
               ))}
-
-              {/* Dark mode toggle button */}
-              <button
-                className="inline-flex items-center justify-center w-9 h-9 rounded-full border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800"
-                onClick={() => setDark((d) => !d)}
-                aria-label="Toggle dark mode"
-                title="Toggle dark mode"
-              >
-                {dark ? <Sun size={18} /> : <Moon size={18} />}
-              </button>
-
-              {/* PDF download button */}
               <a
-                href="/my_new_cv_panos.pdf"
+                href="/my new cv panos.pdf"
                 download="Panagiotis-Gkantzos-CV.pdf"
-                className="inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-full border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800"
+                className="inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-full border border-gray-200 hover:bg-gray-100"
                 title="Download CV as PDF"
               >
                 <Download size={16} />
@@ -101,7 +90,7 @@ export default function App() {
         {/* Main */}
         <main className="max-w-4xl mx-auto pt-28 pb-16 px-4">
           {/* Header Card */}
-          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm p-6 mb-6">
+          <div className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 mb-6">
             <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
               <img
                 src={profilePic}
@@ -110,7 +99,7 @@ export default function App() {
               />
               <div className="flex-1">
                 <h1 className="text-2xl font-bold">Panagiotis Gkantzos</h1>
-                <p className="text-blue-600 dark:text-blue-400">ServiceNow Consultant & Developer</p>
+                <p className="text-blue-600">ServiceNow Consultant & Developer</p>
                 <a
                   href="mailto:panosgaz3@gmail.com"
                   className="mt-2 inline-block text-sm underline decoration-dotted underline-offset-4"
@@ -124,7 +113,9 @@ export default function App() {
           {/* Sections */}
           <Section id="profile" title="Profile">
             <p className="leading-relaxed">
-              Highly motivated and results-driven Computer Engineer with a Master’s degree in Computer Engineering & Informatics. Specializing in ServiceNow development, IT service management, and business process automation.
+              Highly motivated and results-driven Computer Engineer with a Master’s degree in
+              Computer Engineering & Informatics. Specializing in ServiceNow development, IT
+              service management, and business process automation.
             </p>
           </Section>
 
@@ -141,7 +132,7 @@ export default function App() {
           <Section id="education" title="Education">
             <div className="space-y-1">
               <p className="font-semibold">MSc in Computer Engineering & Informatics</p>
-              <p className="text-sm text-gray-600 dark:text-gray-400">University of Patras | 2015 – 2021 | GPA: 6.62</p>
+              <p className="text-sm text-gray-600">University of Patras | 2015 – 2021 | GPA: 6.62</p>
               <ul className="list-disc ml-6 space-y-1">
                 <li>Focused on system design, software architecture, and programming languages.</li>
                 <li>Completed projects involving automation, cloud computing, and software development.</li>
@@ -153,7 +144,9 @@ export default function App() {
             <div className="space-y-5">
               <div>
                 <p className="font-semibold">Performance Technologies S.A. | Athens, Greece (Remote)</p>
-                <p className="text-sm text-gray-600 dark:text-gray-400 italic">ServiceNow Consultant & Developer | Jul 2024 – Present</p>
+                <p className="text-sm text-gray-600 italic">
+                  ServiceNow Consultant & Developer | Jul 2024 – Present
+                </p>
                 <ul className="list-disc ml-6 space-y-1 mt-2">
                   <li>Lead ServiceNow solution implementations for ITSM, CSM, and SPM needs.</li>
                   <li>Configuration and customization of ServiceNow modules.</li>
@@ -162,7 +155,9 @@ export default function App() {
               </div>
               <div>
                 <p className="font-semibold">Deloitte (DACC) | Patras, Greece (On-site)</p>
-                <p className="text-sm text-gray-600 dark:text-gray-400 italic">ServiceNow Business Analyst & Developer | Oct 2022 – Jul 2024</p>
+                <p className="text-sm text-gray-600 italic">
+                  ServiceNow Business Analyst & Developer | Oct 2022 – Jul 2024
+                </p>
                 <ul className="list-disc ml-6 space-y-1 mt-2">
                   <li>Gathered requirements and translated them into technical specifications.</li>
                   <li>Conducted workshops for ITSM solution optimization.</li>
@@ -174,17 +169,31 @@ export default function App() {
 
           <Section id="skills" title="Technical Skills">
             <div className="space-y-2">
-              <div><strong>ServiceNow:</strong> ITSM, CSM, SPM, Application Development, UI/UX Customization</div>
-              <div><strong>Programming:</strong> JavaScript, HTML5, CSS3, Python, SQL</div>
-              <div><strong>Tools:</strong> Git, Jenkins, VS Code, Eclipse</div>
-              <div><strong>Methodologies:</strong> Agile/Scrum, ITIL Framework</div>
+              <div>
+                <strong>ServiceNow:</strong> ITSM, CSM, SPM, Application Development, UI/UX
+                Customization
+              </div>
+              <div>
+                <strong>Programming:</strong> JavaScript, HTML5, CSS3, Python, SQL
+              </div>
+              <div>
+                <strong>Tools:</strong> Git, Jenkins, VS Code, Eclipse
+              </div>
+              <div>
+                <strong>Methodologies:</strong> Agile/Scrum, ITIL Framework
+              </div>
             </div>
           </Section>
 
           <Section id="contact" title="Contact">
             <div className="space-y-2">
-              <div><strong>Email:</strong> <a href="mailto:panosgaz3@gmail.com" className="underline">panosgaz3@gmail.com</a></div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Athens / Patras, Greece</p>
+              <div>
+                <strong>Email:</strong>{" "}
+                <a href="mailto:panosgaz3@gmail.com" className="underline">
+                  panosgaz3@gmail.com
+                </a>
+              </div>
+              <p className="text-sm text-gray-600">Athens / Patras, Greece</p>
             </div>
           </Section>
         </main>
