@@ -152,7 +152,6 @@ export default function App() {
                  >
                  Performance Technologies S.A.
                 </a>
-              .
             </p>
             <p className="leading-relaxed indent-8 mb-2">
               Beyond my technical skills, I am also a collaborative team player, valuing open communication and actively contributing to a positive work environment. My adaptability and eagerness to learn make me quick to grasp new technologies and methodologies, fostering continuous improvement in my work and fostering a growth mindset.
