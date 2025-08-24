@@ -81,7 +81,7 @@ export default function App() {
                 title="Download CV as PDF"
               >
                 <Download size={16} />
-                PDF
+                PDF-CV
               </a>
               <a
                 href="https://www.linkedin.com/in/panagiotis-gkantzos-341909b5"
