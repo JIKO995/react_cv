@@ -83,16 +83,6 @@ export default function App() {
                 <Download size={16} />
                 PDF-CV
               </a>
-              <a
-                href="https://www.linkedin.com/in/panagiotis-gkantzos-341909b5"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-full border border-blue-600 text-blue-600 hover:bg-blue-50"
-                title="Visit LinkedIn Profile"
-              >
-                <Linkedin size={16} />
-                LinkedIn
-              </a>
             </div>
           </div>
         </nav>
