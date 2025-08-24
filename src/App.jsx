@@ -163,7 +163,19 @@ export default function App() {
 
           <Section id="certifications" title="Certifications">
             <ul className="list-disc ml-6 space-y-1">
-              <li>ServiceNow Certified System Administrator (CSA)</li>
+              <li className="flex items-center gap-2">
+               ServiceNow Certified System Administrator 
+               <strong>(CSA)</strong>
+               <a
+                href="/CSA-certification.pdf"
+                download="ServiceNow-CSA.pdf"
+                className="inline-flex items-center gap-1 text-sm px-2 py-1 rounded border border-gray-200 hover:bg-gray-100"
+                title="Download CSA Certificate"
+               >
+              <Download size={14} />
+              PDF
+             </a>
+            </li>
               <li>ServiceNow Certified Implementation Specialist – IT Service Management (ITSM)</li>
               <li>ServiceNow Certified Application Developer (CAD)</li>
               <li>ServiceNow Certified Implementation Specialist – Customer Service Management (CSM)</li>
