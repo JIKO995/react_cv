@@ -196,7 +196,7 @@ export default function App() {
                 </ul>
               </div>
               <div>
-                <p className="font-semibold">Deloitte (DACC) | Patras, Greece (On-site)</p>
+                <p className="font-semibold">Deloitte (DACC) | Patras, Greece (Hybrid)</p>
                 <p className="text-sm text-gray-600 italic">
                   ServiceNow Business Analyst & Developer | Oct 2022 – Jul 2024
                 </p>
