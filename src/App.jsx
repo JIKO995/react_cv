@@ -75,7 +75,7 @@ export default function App() {
                 </a>
               ))}
               <a
-                href="/my new cv panos.pdf"
+                href="/my_new_cv_panos.pdf"
                 download="Panagiotis-Gkantzos-CV.pdf"
                 className="inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-full border border-gray-200 hover:bg-gray-100"
                 title="Download CV as PDF"
