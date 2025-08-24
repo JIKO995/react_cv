@@ -124,19 +124,19 @@ export default function App() {
 
           {/* Sections */}
           <Section id="profile" title="Profile">
-            <p className="leading-relaxed indent-8">
+            <p className="leading-relaxed indent-8 mb-2">
               I am a highly motivated and results-driven Computer Engineer with a Master's degree, specializing in cutting-edge technology and software development. Currently, I am proud to be part of the consulting team at Performance Technologies S.A., where I excel as a skilled ServiceNow Developer.
             </p>
-           <p className="leading-relaxed indent-8">
+           <p className="leading-relaxed indent-8 mb-2">
               My passion for technology and innovation has driven my academic and professional journey. My educational background in Computer Engineering has equipped me with a comprehensive understanding of software design, system architecture, and programming languages.
             </p>
-            <p className="leading-relaxed indent-8">
+            <p className="leading-relaxed indent-8 mb-2">
               As a ServiceNow Developer, I thrive in crafting robust solutions that streamline business processes and enhance overall efficiency. My expertise allows me to leverage the full potential of the ServiceNow platform, ensuring seamless integration and optimal performance for our clients' IT service management needs.
             </p>
-            <p className="leading-relaxed indent-8">
+            <p className="leading-relaxed indent-8 mb-2">
               I approach every project with a combination of analytical thinking, creativity, and attention to detail. My ability to analyze complex problems and develop innovative solutions has enabled me to deliver exceptional results for clients and make a significant impact within my team at Performance Technologies.
             </p>
-            <p className="leading-relaxed indent-8">
+            <p className="leading-relaxed indent-8 mb-2">
               Beyond my technical skills, I am also a collaborative team player, valuing open communication and actively contributing to a positive work environment. My adaptability and eagerness to learn make me quick to grasp new technologies and methodologies, fostering continuous improvement in my work and fostering a growth mindset.
             </p>
             <p className="leading-relaxed indent-8">
