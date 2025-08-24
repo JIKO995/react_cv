@@ -25,16 +25,16 @@ export default function App() {
     const isOpen = openSection === id;
     return (
       <section id={id} className="scroll-mt-28 mb-6">
-        <div className="bg-white border border-gray-200 rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-300">
+        <div className="bg-white/90 border border-gray-200 rounded-2xl shadow-sm hover:shadow-lg transition-shadow duration-300">
           <button
-            className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left bg-gray-50 rounded-2xl"
+            className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left bg-blue-50/20 rounded-2xl"
             onClick={() => setOpenSection(isOpen ? null : id)}
             aria-expanded={isOpen}
             aria-controls={id + "-panel"}
           >
-            <h3 className="text-lg font-semibold">{title}</h3>
+            <h3 className="text-lg font-semibold text-blue-700">{title}</h3>
             <ChevronDown
-              className={"transition-transform " + (isOpen ? "rotate-180" : "rotate-0")}
+              className={"transition-transform text-blue-500 " + (isOpen ? "rotate-180" : "rotate-0")}
             />
           </button>
           <AnimatePresence initial={false}>
@@ -44,8 +44,8 @@ export default function App() {
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: "auto" }}
                 exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.25 }}
-                className="px-5 pb-5 pt-1"
+                transition={{ duration: 0.3 }}
+                className="px-5 pb-5 pt-2 text-gray-700"
               >
                 {children}
               </motion.div>
@@ -57,203 +57,202 @@ export default function App() {
   };
 
   return (
-    <div>
-      <div className="min-h-screen bg-gray-50 text-gray-800">
-        {/* Sticky Navbar */}
-        <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200">
-          <div className="max-w-4xl mx-auto flex items-center justify-between px-4 sm:px-6 py-3">
-            <div className="font-bold text-lg">Panagiotis Gkantzos</div>
-            <div className="flex items-center gap-3">
-              {sections.map((s) => (
-                <a
-                  key={s.id}
-                  href={"#" + s.id}
-                  onClick={handleNavClick(s.id)}
-                  className="text-sm px-2 py-1 rounded hover:underline hover:text-blue-600 transition"
-                >
-                  {s.label}
-                </a>
-              ))}
+    <div className="bg-gray-50 min-h-screen text-gray-800">
+      {/* Navbar */}
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200 shadow-sm">
+        <div className="max-w-4xl mx-auto flex items-center justify-between px-4 sm:px-6 py-3">
+          <div className="font-bold text-lg text-blue-700">Panagiotis Gkantzos</div>
+          <div className="flex items-center gap-3">
+            {sections.map((s) => (
               <a
-                href="/cv.pdf"
-                download="Panagiotis-Gkantzos-CV.pdf"
-                className="inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-full border border-gray-200 hover:bg-gray-100 transition"
-                title="Download CV as PDF"
+                key={s.id}
+                href={"#" + s.id}
+                onClick={handleNavClick(s.id)}
+                className="text-sm px-2 py-1 rounded hover:underline hover:text-blue-600 transition"
               >
-                <Download size={16} />
-                PDF-CV
+                {s.label}
               </a>
-            </div>
+            ))}
+            <a
+              href="/cv.pdf"
+              download="Panagiotis-Gkantzos-CV.pdf"
+              className="inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-full border border-gray-300 hover:bg-blue-50 transition"
+              title="Download CV as PDF"
+            >
+              <Download size={16} />
+              PDF-CV
+            </a>
           </div>
-        </nav>
+        </div>
+      </nav>
 
-        {/* Main */}
-        <main className="max-w-4xl mx-auto pt-28 pb-16 px-4 sm:px-6">
-          {/* Header Card */}
-          <div className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 mb-6 hover:shadow-md transition-shadow duration-300">
-            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
-              <img
-                src={profilePic}
-                alt="Profile"
-                className="w-28 h-28 rounded-full object-cover ring-4 ring-blue-500/20 hover:scale-105 hover:shadow-lg transition-transform duration-300"
-              />
-              <div className="flex-1 space-y-2">
-                <h1 className="text-2xl font-bold">Panagiotis Gkantzos</h1>
-                <p className="text-blue-600 font-medium">
-                  ServiceNow Technical Consultant & Developer
-                </p>
-                <div className="flex flex-wrap gap-2 mt-1">
-                  <a
-                    href="https://www.linkedin.com/in/panagiotis-gkantzos-341909b5"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-full border border-blue-600 text-blue-600 hover:bg-blue-50 transition"
-                    title="Visit LinkedIn Profile"
-                  >
-                    <Linkedin size={16} />
-                    LinkedIn
-                  </a>
-                  <a
-                    href="mailto:panosgaz3@gmail.com"
-                    className="inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-full border border-gray-200 hover:bg-gray-100 transition"
-                    title="Send Email"
-                  >
-                    Email
-                  </a>
-                </div>
+      <main className="max-w-4xl mx-auto pt-28 pb-16 px-4 sm:px-6">
+        {/* Header Card */}
+        <div className="bg-white/90 border border-gray-200 rounded-2xl shadow-sm p-6 mb-6 hover:shadow-lg transition-shadow duration-300">
+          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
+            <img
+              src={profilePic}
+              alt="Profile"
+              className="w-28 h-28 rounded-full object-cover ring-4 ring-blue-500/30 hover:scale-105 hover:shadow-lg transition-transform duration-300"
+            />
+            <div className="flex-1 space-y-2">
+              <h1 className="text-2xl font-bold text-blue-800">Panagiotis Gkantzos</h1>
+              <p className="text-blue-600 font-medium">
+                ServiceNow Technical Consultant & Developer
+              </p>
+              <div className="flex flex-wrap gap-2 mt-1">
+                <a
+                  href="https://www.linkedin.com/in/panagiotis-gkantzos-341909b5"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-full border border-blue-600 text-blue-600 hover:bg-blue-50 transition"
+                  title="Visit LinkedIn Profile"
+                >
+                  <Linkedin size={16} />
+                  LinkedIn
+                </a>
+                <a
+                  href="mailto:panosgaz3@gmail.com"
+                  className="inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-full border border-gray-200 hover:bg-gray-100 transition"
+                  title="Send Email"
+                >
+                  Email
+                </a>
               </div>
             </div>
           </div>
+        </div>
 
-          {/* Profile Section */}
-          <Section id="profile" title="Profile">
-            <p className="leading-relaxed indent-8 mb-2 text-gray-700">
-              I am a highly motivated and results-driven Computer Engineer with a Master's degree, specializing in cutting-edge technology and software development. Currently, I am proud to be part of the consulting team at{" "}
-              <a
-                href="https://www.performance.gr/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 underline"
-              >
-                Performance Technologies S.A.
-              </a>
-              , where I excel as a skilled ServiceNow Developer.
-            </p>
-            <p className="leading-relaxed indent-8 mb-2 text-gray-700">
-              My passion for technology and innovation has driven my academic and professional journey. My educational background in Computer Engineering has equipped me with a comprehensive understanding of software design, system architecture, and programming languages.
-            </p>
-            <p className="leading-relaxed indent-8 mb-2 text-gray-700">
-              As a ServiceNow Developer, I thrive in crafting robust solutions that streamline business processes and enhance overall efficiency. My expertise allows me to leverage the full potential of the ServiceNow platform, ensuring seamless integration and optimal performance for our clients' IT service management needs.
-            </p>
-            <p className="leading-relaxed indent-8 mb-2 text-gray-700">
-              I approach every project with a combination of analytical thinking, creativity, and attention to detail. My ability to analyze complex problems and develop innovative solutions has enabled me to deliver exceptional results for clients and make a significant impact within my team at{" "}
-              <a
-                href="https://www.performance.gr/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 underline"
-              >
-                Performance Technologies S.A.
-              </a>
-            </p>
-            <p className="leading-relaxed indent-8 mb-2 text-gray-700">
-              Beyond my technical skills, I am also a collaborative team player, valuing open communication and actively contributing to a positive work environment. My adaptability and eagerness to learn make me quick to grasp new technologies and methodologies, fostering continuous improvement in my work and fostering a growth mindset.
-            </p>
-            <p className="leading-relaxed indent-8 text-gray-700">
-              Outside of my professional life, I enjoy staying up-to-date with industry trends and participating in tech-related events and workshops. I am always seeking opportunities to expand my knowledge and network with like-minded professionals, as I firmly believe that sharing knowledge and experiences are crucial to fostering innovation in the tech community.
-            </p>
-          </Section>
+        {/* Profile Section */}
+        <Section id="profile" title="Profile">
+          <p className="leading-relaxed indent-8 mb-2 text-gray-700">
+            I am a highly motivated and results-driven Computer Engineer with a Master's degree, specializing in cutting-edge technology and software development. Currently, I am proud to be part of the consulting team at{" "}
+            <a
+              href="https://www.performance.gr/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 underline"
+            >
+              Performance Technologies S.A.
+            </a>
+            , where I excel as a skilled ServiceNow Developer.
+          </p>
+          <p className="leading-relaxed indent-8 mb-2 text-gray-700">
+            My passion for technology and innovation has driven my academic and professional journey. My educational background in Computer Engineering has equipped me with a comprehensive understanding of software design, system architecture, and programming languages.
+          </p>
+          <p className="leading-relaxed indent-8 mb-2 text-gray-700">
+            As a ServiceNow Developer, I thrive in crafting robust solutions that streamline business processes and enhance overall efficiency. My expertise allows me to leverage the full potential of the ServiceNow platform, ensuring seamless integration and optimal performance for our clients' IT service management needs.
+          </p>
+          <p className="leading-relaxed indent-8 mb-2 text-gray-700">
+            I approach every project with a combination of analytical thinking, creativity, and attention to detail. My ability to analyze complex problems and develop innovative solutions has enabled me to deliver exceptional results for clients and make a significant impact within my team at{" "}
+            <a
+              href="https://www.performance.gr/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 underline"
+            >
+              Performance Technologies S.A.
+            </a>
+          </p>
+          <p className="leading-relaxed indent-8 mb-2 text-gray-700">
+            Beyond my technical skills, I am also a collaborative team player, valuing open communication and actively contributing to a positive work environment. My adaptability and eagerness to learn make me quick to grasp new technologies and methodologies, fostering continuous improvement in my work and fostering a growth mindset.
+          </p>
+          <p className="leading-relaxed indent-8 text-gray-700">
+            Outside of my professional life, I enjoy staying up-to-date with industry trends and participating in tech-related events and workshops. I am always seeking opportunities to expand my knowledge and network with like-minded professionals, as I firmly believe that sharing knowledge and experiences are crucial to fostering innovation in the tech community.
+          </p>
+        </Section>
 
-          {/* Certifications Section */}
-          <Section id="certifications" title="Certifications">
-            <ul className="list-disc ml-6 space-y-2">
-              {[
-                { name: "ServiceNow Certified System Administrator", file: "ServiceNow-CSA.pdf", short: "CSA" },
-                { name: "ServiceNow Certified Implementation Specialist – IT Service Management", file: "ServiceNow-ITSM.pdf", short: "ITSM" },
-                { name: "ServiceNow Certified Application Developer", file: "ServiceNow-CAD.pdf", short: "CAD" },
-                { name: "ServiceNow Certified Implementation Specialist – Customer Service Management", file: "ServiceNow-CSM.pdf", short: "CSM" },
-                { name: "ServiceNow Certified Implementation Specialist – Strategic Portfolio Management", file: "ServiceNow-SPM.pdf", short: "SPM" },
-              ].map((cert) => (
-                <li key={cert.short} className="flex items-center gap-2">
-                  {cert.name}{" "}
-                  <a
-                    href={`/${cert.file}`}
-                    download={cert.file}
-                    className="inline-flex items-center gap-1 text-sm px-3 py-1 rounded-full border border-gray-300 hover:bg-gray-100 transition"
-                    title={`Download ${cert.short} Certificate`}
-                  >
-                    <Download size={14} />
-                    <strong>({cert.short})</strong>
-                  </a>
-                </li>
-              ))}
+        {/* Certifications Section */}
+        <Section id="certifications" title="Certifications">
+          <ul className="list-disc ml-6 space-y-2">
+            {[
+              { name: "ServiceNow Certified System Administrator", file: "ServiceNow-CSA.pdf", short: "CSA" },
+              { name: "ServiceNow Certified Implementation Specialist – IT Service Management", file: "ServiceNow-ITSM.pdf", short: "ITSM" },
+              { name: "ServiceNow Certified Application Developer", file: "ServiceNow-CAD.pdf", short: "CAD" },
+              { name: "ServiceNow Certified Implementation Specialist – Customer Service Management", file: "ServiceNow-CSM.pdf", short: "CSM" },
+              { name: "ServiceNow Certified Implementation Specialist – Strategic Portfolio Management", file: "ServiceNow-SPM.pdf", short: "SPM" },
+            ].map((cert) => (
+              <li key={cert.short} className="flex items-center gap-2">
+                {cert.name}{" "}
+                <a
+                  href={`/${cert.file}`}
+                  download={cert.file}
+                  className="inline-flex items-center gap-1 text-sm px-3 py-1 rounded-full border border-gray-300 hover:bg-blue-50 transition-transform transform hover:scale-105"
+                  title={`Download ${cert.short} Certificate`}
+                >
+                  <Download size={14} />
+                  <strong>({cert.short})</strong>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </Section>
+
+        {/* Education Section */}
+        <Section id="education" title="Education">
+          <div className="space-y-1">
+            <p className="font-semibold text-blue-700">MSc in Computer Engineering & Informatics</p>
+            <p className="text-sm text-gray-600">University of Patras | 2015 – 2021 | GPA: 6.62</p>
+            <ul className="list-disc ml-6 space-y-1">
+              <li>Focused on system design, software architecture, and programming languages.</li>
+              <li>Completed projects involving automation, cloud computing, and software development.</li>
             </ul>
-          </Section>
+          </div>
+        </Section>
 
-          {/* Education */}
-          <Section id="education" title="Education">
-            <div className="space-y-1">
-              <p className="font-semibold">MSc in Computer Engineering & Informatics</p>
-              <p className="text-sm text-gray-600">University of Patras | 2015 – 2021 | GPA: 6.62</p>
-              <ul className="list-disc ml-6 space-y-1">
-                <li>Focused on system design, software architecture, and programming languages.</li>
-                <li>Completed projects involving automation, cloud computing, and software development.</li>
+        {/* Experience Section */}
+        <Section id="experience" title="Professional Experience">
+          <div className="space-y-5">
+            <div>
+              <p className="font-semibold text-blue-700">
+                Performance Technologies S.A. | Athens, Greece (Remote)
+              </p>
+              <p className="text-sm text-gray-600 italic">
+                ServiceNow Consultant & Developer | Jul 2024 – Present
+              </p>
+              <ul className="list-disc ml-6 space-y-1 mt-2">
+                 <li>Lead ServiceNow solution implementations for ITSM, CSM, and SPM needs.</li>
+                <li>Configuration and customization of ServiceNow modules.</li>
+                <li>Develop workflows, UI/UX components, and business rules.</li>
               </ul>
             </div>
-          </Section>
-
-          {/* Experience */}
-          <Section id="experience" title="Professional Experience">
-            <div className="space-y-5">
-              <div>
-                <p className="font-semibold">
-                  Performance Technologies S.A. | Athens, Greece (Remote)
-                </p>
-                <p className="text-sm text-gray-600 italic">
-                  ServiceNow Consultant & Developer | Jul 2024 – Present
-                </p>
-                <ul className="list-disc ml-6 space-y-1 mt-2">
-                  <li>Lead ServiceNow solution implementations for ITSM, CSM, and SPM needs.</li>
-                  <li>Configuration and customization of ServiceNow modules.</li>
-                  <li>Develop workflows, UI/UX components, and business rules.</li>
-                </ul>
-              </div>
-              <div>
-                <p className="font-semibold">Deloitte (DACC) | Patras, Greece (Hybrid)</p>
-                <p className="text-sm text-gray-600 italic">
-                  ServiceNow Business Analyst & Developer | Oct 2022 – Jul 2024
-                </p>
-                <ul className="list-disc ml-6 space-y-1 mt-2">
-                  <li>Gathered requirements and translated them into technical specifications.</li>
-                  <li>Conducted workshops for ITSM solution optimization.</li>
-                  <li>Customized ServiceNow modules: Incident, Change, Service Catalog.</li>
-                </ul>
-              </div>
+            <div>
+              <p className="font-semibold text-blue-700">Deloitte (DACC) | Patras, Greece (Hybrid)</p>
+              <p className="text-sm text-gray-600 italic">
+                ServiceNow Business Analyst & Developer | Oct 2022 – Jul 2024
+              </p>
+              <ul className="list-disc ml-6 space-y-1 mt-2">
+                <li>Gathered requirements and translated them into technical specifications.</li>
+                <li>Conducted workshops for ITSM solution optimization.</li>
+                <li>Customized ServiceNow modules: Incident, Change, Service Catalog.</li>
+              </ul>
             </div>
-          </Section>
+          </div>
+        </Section>
 
-          {/* Skills */}
-          <Section id="skills" title="Technical Skills">
-            <div className="space-y-2">
-              <div><strong>ServiceNow:</strong> ITSM, CSM, SPM, Application Development, UI/UX Customization</div>
-              <div><strong>Programming:</strong> JavaScript, HTML5, CSS3, Python, SQL</div>
-              <div><strong>Tools:</strong> Git, Jenkins, VS Code, Eclipse</div>
-              <div><strong>Methodologies:</strong> Agile/Scrum, ITIL Framework</div>
-            </div>
-          </Section>
+        {/* Skills Section */}
+        <Section id="skills" title="Technical Skills">
+          <div className="space-y-2">
+            <div><strong className="text-blue-700">ServiceNow:</strong> ITSM, CSM, SPM, Application Development, UI/UX Customization</div>
+            <div><strong className="text-blue-700">Programming:</strong> JavaScript, HTML5, CSS3, Python, SQL</div>
+            <div><strong className="text-blue-700">Tools:</strong> Git, Jenkins, VS Code, Eclipse</div>
+            <div><strong className="text-blue-700">Methodologies:</strong> Agile/Scrum, ITIL Framework</div>
+          </div>
+        </Section>
 
-          {/* Contact */}
-          <Section id="contact" title="Contact">
-            <div className="space-y-2">
-              <div>
-                <strong>Email:</strong>{" "}
-                <a href="mailto:panosgaz3@gmail.com" className="underline">panosgaz3@gmail.com</a>
-              </div>
-              <p className="text-sm text-gray-600">Athens / Patras, Greece</p>
+        {/* Contact Section */}
+        <Section id="contact" title="Contact">
+          <div className="space-y-2">
+            <div>
+              <strong className="text-blue-700">Email:</strong>{" "}
+              <a href="mailto:panosgaz3@gmail.com" className="underline text-gray-800 hover:text-blue-600">
+                panosgaz3@gmail.com
+              </a>
             </div>
-          </Section>
-        </main>
-      </div>
+            <p className="text-sm text-gray-600">Athens / Patras, Greece</p>
+          </div>
+        </Section>
+      </main>
     </div>
   );
 }
