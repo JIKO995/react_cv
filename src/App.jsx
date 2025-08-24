@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Download, ChevronDown } from "lucide-react";
+import { Download, ChevronDown, Linkedin } from "lucide-react";
 import profilePic from "./unnamed (2).jpg";
 
 export default function App() {
@@ -83,6 +83,16 @@ export default function App() {
                 <Download size={16} />
                 PDF
               </a>
+              <a
+                href="https://www.linkedin.com/in/panagiotis-gkantzos-341909b5"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-full border border-blue-600 text-blue-600 hover:bg-blue-50"
+                title="Visit LinkedIn Profile"
+              >
+                <Linkedin size={16} />
+                LinkedIn
+              </a>
             </div>
           </div>
         </nav>
@@ -99,7 +109,10 @@ export default function App() {
               />
               <div className="flex-1">
                 <h1 className="text-2xl font-bold">Panagiotis Gkantzos</h1>
-                <p className="text-blue-600">ServiceNow Consultant & Developer</p>
+                <p className="text-blue-600">
+                  ServiceNow Consultant & Developer passionate about automating business processes and
+                  creating intuitive IT solutions.
+                </p>
                 <a
                   href="mailto:panosgaz3@gmail.com"
                   className="mt-2 inline-block text-sm underline decoration-dotted underline-offset-4"
@@ -113,9 +126,10 @@ export default function App() {
           {/* Sections */}
           <Section id="profile" title="Profile">
             <p className="leading-relaxed">
-              Highly motivated and results-driven Computer Engineer with a Master’s degree in
-              Computer Engineering & Informatics. Specializing in ServiceNow development, IT
-              service management, and business process automation.
+              I am a problem-solver and technology enthusiast, specializing in ServiceNow development.
+              I enjoy designing efficient workflows, automating tasks, and improving IT service
+              management for businesses. My goal is to bridge the gap between complex technical
+              solutions and user-friendly experiences.
             </p>
           </Section>
 
@@ -170,8 +184,7 @@ export default function App() {
           <Section id="skills" title="Technical Skills">
             <div className="space-y-2">
               <div>
-                <strong>ServiceNow:</strong> ITSM, CSM, SPM, Application Development, UI/UX
-                Customization
+                <strong>ServiceNow:</strong> ITSM, CSM, SPM, Application Development, UI/UX Customization
               </div>
               <div>
                 <strong>Programming:</strong> JavaScript, HTML5, CSS3, Python, SQL
@@ -201,3 +214,4 @@ export default function App() {
     </div>
   );
 }
+
