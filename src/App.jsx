@@ -110,14 +110,23 @@ export default function App() {
               <div className="flex-1">
                 <h1 className="text-2xl font-bold">Panagiotis Gkantzos</h1>
                 <p className="text-blue-600">
-                  ServiceNow Consultant & Developer passionate about automating business processes and
-                  creating intuitive IT solutions.
+                  ServiceNow Technical Consultant & Developer
                 </p>
+                <a
+                href="https://www.linkedin.com/in/panagiotis-gkantzos-341909b5"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-full border border-blue-600 text-blue-600 hover:bg-blue-50"
+                title="Visit LinkedIn Profile"
+              >
+                <Linkedin size={16} />
+                LinkedIn
+              </a>
                 <a
                   href="mailto:panosgaz3@gmail.com"
                   className="mt-2 inline-block text-sm underline decoration-dotted underline-offset-4"
                 >
-                  panosgaz3@gmail.com
+                  
                 </a>
               </div>
             </div>
