@@ -33,7 +33,9 @@ export default function App() {
             aria-controls={`${id}-panel`}
           >
             <h3 className="text-lg font-semibold">{title}</h3>
-            <ChevronDown className={\`transition-transform \${isOpen ? "rotate-180" : "rotate-0"}\`} />
+            <ChevronDown 
+              className={"transition-transform " + (isOpen ? "rotate-180" : "rotate-0")} 
+              />
           </button>
           <AnimatePresence initial={false}>
             {isOpen && (
