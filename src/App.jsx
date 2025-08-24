@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Sun, Moon, Download, ChevronDown } from "lucide-react";
-import profilePic from "./unnamed (2).jpg";
-import { Download } from "lucide-react";
+import profilePic from "./unnamed (2).jpg"; // Your local profile picture
 
 export default function App() {
   const [dark, setDark] = useState(false);
@@ -35,9 +34,7 @@ export default function App() {
             aria-controls={id + "-panel"}
           >
             <h3 className="text-lg font-semibold">{title}</h3>
-            <ChevronDown
-              className={"transition-transform " + (isOpen ? "rotate-180" : "rotate-0")}
-            />
+            <ChevronDown className={"transition-transform " + (isOpen ? "rotate-180" : "rotate-0")} />
           </button>
           <AnimatePresence initial={false}>
             {isOpen && (
@@ -76,6 +73,8 @@ export default function App() {
                   {s.label}
                 </a>
               ))}
+
+              {/* Dark mode toggle button */}
               <button
                 className="inline-flex items-center justify-center w-9 h-9 rounded-full border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800"
                 onClick={() => setDark((d) => !d)}
@@ -83,14 +82,17 @@ export default function App() {
                 title="Toggle dark mode"
               >
                 {dark ? <Sun size={18} /> : <Moon size={18} />}
+              </button>
+
+              {/* PDF download button */}
               <a
-                 href="/my_new_cv_panos.pdf"        
-                 download="Panagiotis-Gkantzos-CV.pdf" 
-                 className="inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-full border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800"
-                 title="Download CV as PDF"
-               >
-                 <Download size={16} />
-                 PDF
+                href="/my_new_cv_panos.pdf"
+                download="Panagiotis-Gkantzos-CV.pdf"
+                className="inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-full border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800"
+                title="Download CV as PDF"
+              >
+                <Download size={16} />
+                PDF
               </a>
             </div>
           </div>
@@ -102,10 +104,10 @@ export default function App() {
           <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm p-6 mb-6">
             <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
               <img
-  src={profilePic}
-  alt="Profile"
-  className="w-28 h-28 rounded-full object-cover ring-4 ring-blue-500/20 hover:scale-105 transition-transform"
-/>
+                src={profilePic}
+                alt="Profile"
+                className="w-28 h-28 rounded-full object-cover ring-4 ring-blue-500/20 hover:scale-105 transition-transform"
+              />
               <div className="flex-1">
                 <h1 className="text-2xl font-bold">Panagiotis Gkantzos</h1>
                 <p className="text-blue-600 dark:text-blue-400">ServiceNow Consultant & Developer</p>
