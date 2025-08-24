@@ -30,17 +30,17 @@ export default function App() {
             className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left bg-gray-50/70 dark:bg-gray-900/40 rounded-2xl"
             onClick={() => setOpenSection(isOpen ? null : id)}
             aria-expanded={isOpen}
-            aria-controls={`${id}-panel`}
+            aria-controls={id + "-panel"}
           >
             <h3 className="text-lg font-semibold">{title}</h3>
-            <ChevronDown 
-              className={"transition-transform " + (isOpen ? "rotate-180" : "rotate-0")} 
-              />
+            <ChevronDown
+              className={"transition-transform " + (isOpen ? "rotate-180" : "rotate-0")}
+            />
           </button>
           <AnimatePresence initial={false}>
             {isOpen && (
               <motion.div
-                id={\`\${id}-panel\`}
+                id={id + "-panel"}
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: "auto" }}
                 exit={{ opacity: 0, height: 0 }}
@@ -67,7 +67,7 @@ export default function App() {
               {sections.map((s) => (
                 <a
                   key={s.id}
-                  href={\`#\${s.id}\`}
+                  href={"#" + s.id}
                   onClick={handleNavClick(s.id)}
                   className="text-sm px-2 py-1 rounded hover:underline"
                 >
@@ -188,3 +188,4 @@ export default function App() {
     </div>
   );
 }
+
