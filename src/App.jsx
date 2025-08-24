@@ -3,10 +3,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Download, ChevronDown, Linkedin } from "lucide-react";
 import profilePic from "./unnamed (2).jpg";
 
-// Helper component for ServiceNow with green "o"
+
 const ServiceNow = () => (
   <>
-    ServiceN<span className="text-green-500 font-semibold">o</span>w
+    <strong><ServiceN />:</strong><span className="text-green-500 font-bold">o</span><strong><w/>:</strong>
   </>
 );
 
