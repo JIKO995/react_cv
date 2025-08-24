@@ -84,14 +84,14 @@ export default function App() {
               >
                 {dark ? <Sun size={18} /> : <Moon size={18} />}
               <a
-  href="/my_new_cv_panos.pdf"        
-  download="Panagiotis-Gkantzos-CV.pdf" 
-  className="inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-full border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800"
-  title="Download CV as PDF"
->
-  <Download size={16} />
-  PDF
-</a>
+                 href="/my_new_cv_panos.pdf"        
+                 download="Panagiotis-Gkantzos-CV.pdf" 
+                 className="inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-full border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800"
+                 title="Download CV as PDF"
+               >
+                 <Download size={16} />
+                 PDF
+              </a>
             </div>
           </div>
         </nav>
