@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Sun, Moon, Download, ChevronDown } from "lucide-react";
+import profilePic from "./unnamed (2).jpg";
 
 export default function App() {
   const [dark, setDark] = useState(false);
@@ -100,10 +101,10 @@ export default function App() {
           <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm p-6 mb-6">
             <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
               <img
-                src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?q=80&w=300&auto=format&fit=crop"
-                alt="Profile"
-                className="w-28 h-28 rounded-full object-cover ring-4 ring-blue-500/20 hover:scale-105 transition-transform"
-              />
+  src={profilePic}
+  alt="Profile"
+  className="w-28 h-28 rounded-full object-cover ring-4 ring-blue-500/20 hover:scale-105 transition-transform"
+/>
               <div className="flex-1">
                 <h1 className="text-2xl font-bold">Panagiotis Gkantzos</h1>
                 <p className="text-blue-600 dark:text-blue-400">ServiceNow Consultant & Developer</p>
