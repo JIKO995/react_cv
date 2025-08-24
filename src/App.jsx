@@ -143,7 +143,16 @@ export default function App() {
               As a ServiceNow Developer, I thrive in crafting robust solutions that streamline business processes and enhance overall efficiency. My expertise allows me to leverage the full potential of the ServiceNow platform, ensuring seamless integration and optimal performance for our clients' IT service management needs.
             </p>
             <p className="leading-relaxed indent-8 mb-2">
-              I approach every project with a combination of analytical thinking, creativity, and attention to detail. My ability to analyze complex problems and develop innovative solutions has enabled me to deliver exceptional results for clients and make a significant impact within my team at Performance Technologies.
+              I approach every project with a combination of analytical thinking, creativity, and attention to detail. My ability to analyze complex problems and develop innovative solutions has enabled me to deliver exceptional results for clients and make a significant impact within my team at{" "}
+              <a
+                  href="https://www.performance.gr/" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 underline"
+                 >
+                 Performance Technologies S.A.
+                </a>
+              .
             </p>
             <p className="leading-relaxed indent-8 mb-2">
               Beyond my technical skills, I am also a collaborative team player, valuing open communication and actively contributing to a positive work environment. My adaptability and eagerness to learn make me quick to grasp new technologies and methodologies, fostering continuous improvement in my work and fostering a growth mindset.
