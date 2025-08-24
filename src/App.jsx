@@ -22,7 +22,6 @@ export default function App() {
     setOpenSection(id);
   };
 
-  // Observe which section is currently in view for active navbar highlighting
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -108,7 +107,6 @@ export default function App() {
         </div>
       </nav>
 
-      {/* Main Content */}
       <main className="max-w-4xl mx-auto pt-28 pb-16 px-4 sm:px-6">
         {/* Header */}
         <div className="bg-gradient-to-r from-white to-blue-50 border border-gray-200 rounded-2xl shadow-sm p-6 mb-6 hover:shadow-lg transition-shadow duration-300">
@@ -212,11 +210,72 @@ export default function App() {
           </ul>
         </Section>
 
-        {/* Education, Experience, Skills, Contact Sections remain unchanged but can adopt same subtle gradient style */}
-        {/* ...same structure as before with gradient background and hover shadows */}
+        {/* Education Section */}
+        <Section id="education" title="Education">
+          <div className="space-y-2">
+            <p className="font-semibold text-blue-700">MSc in Computer Engineering & Informatics</p>
+            <p className="text-sm text-gray-600">University of Patras | 2015 – 2021 | GPA: 6.62</p>
+            <ul className="list-disc ml-6 space-y-1 text-gray-700">
+              <li>Focused on system design, software architecture, and programming languages.</li>
+              <li>Completed projects involving automation, cloud computing, and software development.</li>
+            </ul>
+          </div>
+        </Section>
+
+        {/* Experience Section */}
+        <Section id="experience" title="Professional Experience">
+          <div className="space-y-5">
+            <div>
+              <p className="font-semibold text-blue-700">
+                Performance Technologies S.A. | Athens, Greece (Remote)
+              </p>
+              <p className="text-sm text-gray-600 italic">
+                ServiceNow Consultant & Developer | Jul 2024 – Present
+              </p>
+              <ul className="list-disc ml-6 space-y-1 text-gray-700">
+                <li>Lead ServiceNow solution implementations for ITSM, CSM, and SPM needs.</li>
+                <li>Configuration and customization of ServiceNow modules.</li>
+                <li>Develop workflows, UI/UX components, and business rules.</li>
+              </ul>
+            </div>
+            <div>
+              <p className="font-semibold text-blue-700">Deloitte (DACC) | Patras, Greece (Hybrid)</p>
+              <p className="text-sm text-gray-600 italic">
+                ServiceNow Business Analyst & Developer | Oct 2022 – Jul 2024
+              </p>
+              <ul className="list-disc ml-6 space-y-1 text-gray-700">
+                <li>Gathered requirements and translated them into technical specifications.</li>
+                <li>Conducted workshops for ITSM solution optimization.</li>
+                <li>Customized ServiceNow modules: Incident, Change, Service Catalog.</li>
+              </ul>
+            </div>
+          </div>
+        </Section>
+
+        {/* Skills Section */}
+        <Section id="skills" title="Technical Skills">
+          <div className="space-y-2 text-gray-700">
+            <div><strong>ServiceNow:</strong> ITSM, CSM, SPM, Application Development, UI/UX Customization</div>
+            <div><strong>Programming:</strong> JavaScript, HTML5, CSS3, Python, SQL</div>
+            <div><strong>Tools:</strong> Git, Jenkins, VS Code, Eclipse</div>
+            <div><strong>Methodologies:</strong> Agile/Scrum, ITIL Framework</div>
+          </div>
+        </Section>
+
+        {/* Contact Section */}
+        <Section id="contact" title="Contact">
+          <div className="space-y-2 text-gray-700">
+            <div>
+              <strong>Email:</strong>{" "}
+              <a href="mailto:panosgaz3@gmail.com" className="underline">panosgaz3@gmail.com</a>
+            </div>
+            <p className="text-sm text-gray-600">Athens / Patras, Greece</p>
+          </div>
+        </Section>
       </main>
     </div>
   );
 }
+
 
 
