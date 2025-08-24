@@ -166,7 +166,7 @@ export default function App() {
               <li className="flex items-center gap-2">
                ServiceNow Certified System Administrator 
                <a
-                href="/CSA-certification.pdf"
+                href="/ServiceNow-CSA.pdf"
                 download="ServiceNow-CSA.pdf"
                 className="inline-flex items-center gap-1 text-sm px-2 py-1 rounded border border-gray-200 hover:bg-gray-100"
                 title="Download CSA Certificate"
@@ -179,7 +179,7 @@ export default function App() {
               <li className="flex items-center gap-2">
                ServiceNow Certified Implementation Specialist – IT Service Management
                <a
-                href="/CSA-certification.pdf"
+                href="/ServiceNow-ITSM.pdf"
                 download="ServiceNow-ITSM.pdf"
                 className="inline-flex items-center gap-1 text-sm px-2 py-1 rounded border border-gray-200 hover:bg-gray-100"
                 title="Download ITSM Certificate"
@@ -192,7 +192,7 @@ export default function App() {
               <li className="flex items-center gap-2">
                ServiceNow Certified Application Developer
                <a
-                href="/CSA-certification.pdf"
+                href="/ServiceNow-CAD.pdf"
                 download="ServiceNow-CAD.pdf"
                 className="inline-flex items-center gap-1 text-sm px-2 py-1 rounded border border-gray-200 hover:bg-gray-100"
                 title="Download CAD Certificate"
@@ -205,8 +205,8 @@ export default function App() {
               <li className="flex items-center gap-2">
                ServiceNow Certified Implementation Specialist – Customer Service Management
                <a
-                href="/CSA-certification.pdf"
-                download="ServiceNow-CAD.pdf"
+                href="/ServiceNow-CSM.pdf"
+                download="ServiceNow-CSM.pdf"
                 className="inline-flex items-center gap-1 text-sm px-2 py-1 rounded border border-gray-200 hover:bg-gray-100"
                 title="Download CSM Certificate"
                >
@@ -218,8 +218,8 @@ export default function App() {
               <li className="flex items-center gap-2">
                ServiceNow Certified Implementation Specialist – Strategic Portfolio Management
                <a
-                href="/CSA-certification.pdf"
-                download="ServiceNow-CAD.pdf"
+                href="/ServiceNow-SPM.pdf"
+                download="ServiceNow-SPM.pdf"
                 className="inline-flex items-center gap-1 text-sm px-2 py-1 rounded border border-gray-200 hover:bg-gray-100"
                 title="Download SPM Certificate"
                >
