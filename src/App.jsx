@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Sun, Moon, Download, ChevronDown } from "lucide-react";
 import profilePic from "./unnamed (2).jpg";
+import { Download } from "lucide-react";
 
 export default function App() {
   const [dark, setDark] = useState(false);
@@ -82,15 +83,15 @@ export default function App() {
                 title="Toggle dark mode"
               >
                 {dark ? <Sun size={18} /> : <Moon size={18} />}
-              </button>
-              <button
-                onClick={() => window.print()}
-                className="inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-full border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800"
-                title="Print / Save as PDF"
-              >
-                <Download size={16} />
-                PDF
-              </button>
+              <a
+  href="/my_new_cv_panos.pdf"        
+  download="Panagiotis-Gkantzos-CV.pdf" 
+  className="inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-full border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800"
+  title="Download CV as PDF"
+>
+  <Download size={16} />
+  PDF
+</a>
             </div>
           </div>
         </nav>
