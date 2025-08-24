@@ -175,10 +175,58 @@ export default function App() {
               <strong>(CSA)</strong>
              </a>
             </li>
-              <li>ServiceNow Certified Implementation Specialist – IT Service Management (ITSM)</li>
-              <li>ServiceNow Certified Application Developer (CAD)</li>
-              <li>ServiceNow Certified Implementation Specialist – Customer Service Management (CSM)</li>
-              <li>ServiceNow Certified Implementation Specialist – Strategic Portfolio Management (SPM)</li>
+              
+              <li className="flex items-center gap-2">
+               ServiceNow Certified Implementation Specialist – IT Service Management
+               <a
+                href="/CSA-certification.pdf"
+                download="ServiceNow-ITSM.pdf"
+                className="inline-flex items-center gap-1 text-sm px-2 py-1 rounded border border-gray-200 hover:bg-gray-100"
+                title="Download ITSM Certificate"
+               >
+              <Download size={14} />
+              <strong>(ITSM)</strong>
+             </a>
+            </li>
+
+              <li className="flex items-center gap-2">
+               ServiceNow Certified Application Developer
+               <a
+                href="/CSA-certification.pdf"
+                download="ServiceNow-CAD.pdf"
+                className="inline-flex items-center gap-1 text-sm px-2 py-1 rounded border border-gray-200 hover:bg-gray-100"
+                title="Download CAD Certificate"
+               >
+              <Download size={14} />
+              <strong>(CAD)</strong>
+             </a>
+            </li>
+
+              <li className="flex items-center gap-2">
+               ServiceNow Certified Implementation Specialist – Customer Service Management
+               <a
+                href="/CSA-certification.pdf"
+                download="ServiceNow-CAD.pdf"
+                className="inline-flex items-center gap-1 text-sm px-2 py-1 rounded border border-gray-200 hover:bg-gray-100"
+                title="Download CSM Certificate"
+               >
+              <Download size={14} />
+              <strong>(CSM)</strong>
+             </a>
+            </li>
+
+              <li className="flex items-center gap-2">
+               ServiceNow Certified Implementation Specialist – Strategic Portfolio Management
+               <a
+                href="/CSA-certification.pdf"
+                download="ServiceNow-CAD.pdf"
+                className="inline-flex items-center gap-1 text-sm px-2 py-1 rounded border border-gray-200 hover:bg-gray-100"
+                title="Download SPM Certificate"
+               >
+              <Download size={14} />
+              <strong>(SPM)</strong>
+             </a>
+            </li>
             </ul>
           </Section>
 
