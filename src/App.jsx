@@ -44,14 +44,14 @@ export default function App() {
     const isOpen = openSection === id;
     return (
       <section id={id} className="scroll-mt-28 mb-6">
-        <div className="bg-gradient-to-r from-white to-blue-50 border border-gray-200 rounded-2xl shadow-sm hover:shadow-lg transition-shadow duration-300">
+        <div className="bg-white/90 border border-gray-200 rounded-2xl shadow-sm hover:shadow-lg transition-shadow duration-300">
           <button
             className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left bg-white rounded-2xl hover:bg-blue-50 transition"
             onClick={() => setOpenSection(isOpen ? null : id)}
             aria-expanded={isOpen}
             aria-controls={id + "-panel"}
           >
-            <h3 className="text-lg font-semibold text-blue-700">{title}</h3>
+            <h3 className="text-lg font-semibold text-blue-800">{title}</h3>
             <ChevronDown
               className={"transition-transform " + (isOpen ? "rotate-180" : "rotate-0")}
             />
@@ -76,9 +76,9 @@ export default function App() {
   };
 
   return (
-    <div className="bg-gray-50 min-h-screen text-gray-800">
+    <div className="bg-gradient-to-b from-gray-100 via-white to-gray-100 min-h-screen text-gray-800">
       {/* Navbar */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200 shadow-sm">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-200 shadow-sm">
         <div className="max-w-4xl mx-auto flex items-center justify-between px-4 sm:px-6 py-3">
           <div className="font-bold text-lg text-blue-700">Panagiotis Gkantzos</div>
           <div className="flex items-center gap-3">
@@ -215,9 +215,9 @@ export default function App() {
           <div className="space-y-2">
             <p className="font-semibold text-blue-700">MSc in Computer Engineering & Informatics</p>
             <p className="text-sm text-gray-600">University of Patras | 2015 – 2021 | GPA: 6.62</p>
-            <ul className="list-disc ml-6 space-y-1 text-gray-700">
-              <li>Focused on system design, software architecture, and programming languages.</li>
-              <li>Completed projects involving automation, cloud computing, and software development.</li>
+            <ul className="list-disc ml-6 space-y-1">
+              <li className="text-gray-700">Focused on system design, software architecture, and programming languages.</li>
+              <li className="text-gray-700">Completed projects involving automation, cloud computing, and software development.</li>
             </ul>
           </div>
         </Section>
@@ -269,13 +269,11 @@ export default function App() {
               <strong>Email:</strong>{" "}
               <a href="mailto:panosgaz3@gmail.com" className="underline">panosgaz3@gmail.com</a>
             </div>
-            <p className="text-sm text-gray-600">Athens / Patras, Greece</p>
+            <strong>Email:</strong>{" "}
+            <a className="text-sm text-gray-600">+30 6985959766</a>
           </div>
         </Section>
       </main>
     </div>
   );
 }
-
-
-
