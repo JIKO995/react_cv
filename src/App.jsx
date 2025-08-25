@@ -213,7 +213,7 @@ export default function App() {
         {/* Education Section */}
         <Section id="education" title="Education">
           <div className="space-y-2">
-            <p className="font-semibold text-blue-700">MSc in Computer Engineering & Informatics</p>
+            <p className="font-semibold text-blue-700">Integrated MSc in Computer Engineering & Informatics</p>
             <p className="text-sm text-gray-600">University of Patras | 2015 – 2021 | GPA: 6.62</p>
             <ul className="list-disc ml-6 space-y-1">
               <li className="text-gray-700">Focused on system design, software architecture, and programming languages.</li>
