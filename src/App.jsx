@@ -331,34 +331,67 @@ export default function App() {
 </Section>
 
           {/* Experience */}
-          <Section id="experience" title="Professional Experience">
-            <div className="space-y-5">
-              <div>
-                <p className="font-semibold text-blue-700">
-                  Performance Technologies S.A. | Athens, Greece (Remote)
-                </p>
-                <p className="text-sm text-gray-600 italic">
-                  ServiceNow Consultant & Developer | Jul 2024 – Present
-                </p>
-                <ul className="list-disc ml-6 space-y-1 text-gray-700">
-                  <li>Lead ServiceNow solution implementations for ITSM, CSM, and SPM needs.</li>
-                  <li>Configuration and customization of ServiceNow modules.</li>
-                  <li>Develop workflows, UI/UX components, and business rules.</li>
-                </ul>
-              </div>
-              <div>
-                <p className="font-semibold text-blue-700">Deloitte (DACC) | Patras, Greece (Hybrid)</p>
-                <p className="text-sm text-gray-600 italic">
-                  ServiceNow Business Analyst & Developer | Oct 2022 – Jul 2024
-                </p>
-                <ul className="list-disc ml-6 space-y-1 text-gray-700">
-                  <li>Gathered requirements and translated them into technical specifications.</li>
-                  <li>Conducted workshops for ITSM solution optimization.</li>
-                  <li>Customized ServiceNow modules: Incident, Change, Service Catalog.</li>
-                </ul>
-              </div>
-            </div>
-          </Section>
+<Section id="experience" title="Professional Experience">
+  <div className="space-y-5">
+    {/* Job 1 */}
+    <div>
+      <p className="font-semibold text-blue-700 flex items-center gap-2">
+        {/* Icon/Logo Placeholder */}
+        <img 
+          src="/logos/performance-tech.png" 
+          alt="Performance Technologies Logo" 
+          className="w-5 h-5 object-contain"
+        />
+        <a 
+          href="https://www.performance.gr/en/" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className="hover:underline"
+        >
+          Performance Technologies S.A.
+        </a>
+        <span className="text-gray-700 font-normal">| Athens, Greece (Remote)</span>
+      </p>
+      <p className="text-sm text-gray-600 italic">
+        ServiceNow Consultant & Developer | Jul 2024 – Present
+      </p>
+      <ul className="list-disc ml-6 space-y-1 text-gray-700">
+        <li>Lead ServiceNow solution implementations for ITSM, CSM, and SPM needs.</li>
+        <li>Configuration and customization of ServiceNow modules.</li>
+        <li>Develop workflows, UI/UX components, and business rules.</li>
+      </ul>
+    </div>
+
+    {/* Job 2 */}
+    <div>
+      <p className="font-semibold text-blue-700 flex items-center gap-2">
+        {/* Icon/Logo Placeholder */}
+        <img 
+          src="/logos/deloitte.png" 
+          alt="Deloitte Logo" 
+          className="w-5 h-5 object-contain"
+        />
+        <a 
+          href="https://www.deloitte.com/" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className="hover:underline"
+        >
+          Deloitte (DACC)
+        </a>
+        <span className="text-gray-700 font-normal">| Patras, Greece (Hybrid)</span>
+      </p>
+      <p className="text-sm text-gray-600 italic">
+        ServiceNow Business Analyst & Developer | Oct 2022 – Jul 2024
+      </p>
+      <ul className="list-disc ml-6 space-y-1 text-gray-700">
+        <li>Gathered requirements and translated them into technical specifications.</li>
+        <li>Conducted workshops for ITSM solution optimization.</li>
+        <li>Customized ServiceNow modules: Incident, Change, Service Catalog.</li>
+      </ul>
+    </div>
+  </div>
+</Section>
 
           {/* Skills */}
           <Section id="skills" title="Technical Skills">
