@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Download, ChevronDown, Linkedin, Github } from "lucide-react";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async"; // ✅ Updated import
 import profilePic from "./unnamed (2).jpg";
 
 export default function App() {
   const [openSection, setOpenSection] = useState("profile");
   const [activeSection, setActiveSection] = useState("profile");
 
-  // ✅ Memoize sections to prevent re-creation on every render
+  // ✅ Memoize sections for performance
   const sections = useMemo(() => [
     { id: "profile", label: "Profile" },
     { id: "certifications", label: "Certifications" },
@@ -42,7 +42,7 @@ export default function App() {
     return () => observer.disconnect();
   }, [sections]);
 
-  // ✅ Accessible Accordion Section Component
+  // ✅ Accessible Section Component
   const Section = ({ id, title, children }) => {
     const isOpen = openSection === id;
     return (
@@ -83,7 +83,7 @@ export default function App() {
 
   return (
     <>
-      {/* ✅ SEO & Metadata */}
+      {/* ✅ SEO Metadata using Helmet */}
       <Helmet>
         <title>Panagiotis Gkantzos | ServiceNow Consultant & Developer</title>
         <meta
@@ -114,7 +114,7 @@ export default function App() {
                   }`}
                 >
                   {s.label}
-                  {/* ✅ Active link indicator with motion */}
+                  {/* ✅ Animated Active Indicator */}
                   {activeSection === s.id && (
                     <motion.div
                       layoutId="nav-active"
@@ -189,7 +189,7 @@ export default function App() {
             </div>
           </motion.div>
 
-          {/* Sections */}
+          {/* Profile Section */}
           <Section id="profile" title="Profile">
             <p className="leading-relaxed indent-8 mb-2">
               I am a highly motivated and results-driven Computer Engineer with a Master's degree, specializing in cutting-edge technology and software development. Currently, I am proud to be part of the consulting team at{" "}
@@ -228,6 +228,7 @@ export default function App() {
             </p>
           </Section>
 
+          {/* Certifications */}
           <Section id="certifications" title="Certifications">
             <ul className="list-disc ml-6 space-y-2">
               {[
@@ -254,6 +255,7 @@ export default function App() {
             </ul>
           </Section>
 
+          {/* Education */}
           <Section id="education" title="Education">
             <div className="space-y-2">
               <p className="font-semibold text-blue-700">Integrated MSc in Computer Engineering & Informatics</p>
@@ -265,6 +267,7 @@ export default function App() {
             </div>
           </Section>
 
+          {/* Experience */}
           <Section id="experience" title="Professional Experience">
             <div className="space-y-5">
               <div>
@@ -294,6 +297,7 @@ export default function App() {
             </div>
           </Section>
 
+          {/* Skills */}
           <Section id="skills" title="Technical Skills">
             <div className="space-y-2 text-gray-700">
               <div><strong>ServiceNow:</strong> ITSM, CSM, SPM, Application Development, UI/UX Customization</div>
@@ -303,6 +307,7 @@ export default function App() {
             </div>
           </Section>
 
+          {/* Contact */}
           <Section id="contact" title="Contact">
             <div className="space-y-2 text-gray-700">
               <div>
