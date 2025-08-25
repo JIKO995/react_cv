@@ -269,7 +269,7 @@ export default function App() {
               <strong>Email:</strong>{" "}
               <a href="mailto:panosgaz3@gmail.com" className="underline">panosgaz3@gmail.com</a>
             </div>
-            <strong>Email:</strong>{" "}
+            <strong>Phone:</strong>{" "}
             <a className="text-sm text-gray-600">+30 6985959766</a>
           </div>
         </Section>
