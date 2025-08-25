@@ -338,12 +338,12 @@ export default function App() {
       <p className="font-semibold text-blue-700 flex items-center gap-2">
         {/* Icon/Logo Placeholder */}
         <img 
-          src="/performance-tech.png" 
+          src="/logos/performance-tech.png" 
           alt="Performance Technologies Logo" 
           className="w-5 h-5 object-contain"
         />
         <a 
-          href="https://www.performance.gr/" 
+          href="https://www.performance.gr/en/" 
           target="_blank" 
           rel="noopener noreferrer" 
           className="hover:underline"
@@ -367,7 +367,7 @@ export default function App() {
       <p className="font-semibold text-blue-700 flex items-center gap-2">
         {/* Icon/Logo Placeholder */}
         <img 
-          src="/deloitte.png" 
+          src="/logos/deloitte.png" 
           alt="Deloitte Logo" 
           className="w-5 h-5 object-contain"
         />
@@ -392,7 +392,6 @@ export default function App() {
     </div>
   </div>
 </Section>
-
           {/* Skills */}
           <Section id="skills" title="Technical Skills">
             <div className="space-y-2 text-gray-700">
