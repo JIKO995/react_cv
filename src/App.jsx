@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Download, ChevronDown, Linkedin, Github } from "lucide-react";
+import { Download, ChevronDown, Linkedin, Github, Gmail } from "lucide-react";
 import profilePic from "./unnamed (2).jpg";
 
 export default function App() {
@@ -147,6 +147,7 @@ export default function App() {
                   className="inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-full border border-gray-200 hover:bg-gray-100 transition"
                   title="Send Email"
                 >
+                  <Gmail size={16} />
                   Email
                 </a>
               </div>
