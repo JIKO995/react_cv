@@ -8,6 +8,16 @@ import AIChat from "./AIChat";
 export default function App() {
   const [openSection, setOpenSection] = useState("profile");
   const [activeSection, setActiveSection] = useState("profile");
+  const knowledge = `
+Name: Panagiotis Gkantzos
+Role: ServiceNow Technical Consultant & Developer
+Education: Integrated MSc in Computer Engineering & Informatics, University of Patras, GPA: 6.62
+Skills: ServiceNow ITSM, CSM, SPM, Application Development, UI/UX Customization, JavaScript, HTML, CSS, Python, SQL, Git, Jenkins, VS Code, Eclipse, Agile/Scrum, ITIL
+Experience:
+- Performance Technologies S.A.: ServiceNow Consultant & Developer | Jul 2024 – Present | Athens, Greece (Remote)
+- Deloitte (DACC): ServiceNow Business Analyst & Developer | Oct 2022 – Jul 2024 | Patras, Greece (Hybrid)
+Certifications: CSA, CAD, ITSM, CSM, SPM
+`;
 
   // ✅ Memoize sections for performance
   const sections = useMemo(() => [
@@ -415,6 +425,8 @@ export default function App() {
               </div>
             </div>
           </Section>
+          {/* --- AI Chat Component --- */}
+<AIChat knowledge={knowledge} />
         </main>
       </div>
     </>
