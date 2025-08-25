@@ -133,6 +133,16 @@ export default function App() {
                   LinkedIn
                 </a>
                 <a
+                  href="https://github.com/JIKO995"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-full border border-blue-600 text-blue-600 hover:bg-blue-50 transition"
+                  title="Visit Github Profile"
+                >
+                  <Linkedin size={16} />
+                  Github
+                </a>
+                <a
                   href="mailto:panosgaz3@gmail.com"
                   className="inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-full border border-gray-200 hover:bg-gray-100 transition"
                   title="Send Email"
