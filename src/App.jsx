@@ -336,12 +336,11 @@ export default function App() {
     {/* Job 1 */}
     <div>
       <p className="font-semibold text-blue-700 flex items-center gap-2">
-        {/* Icon/Logo Placeholder */}
-        <img 
-          src="/logos/performance-tech.png" 
-          alt="Performance Technologies Logo" 
-          className="w-5 h-5 object-contain"
-        />
+        <img
+            src="/logos/performance-tech.png"
+             alt="Performance Technologies Logo"
+             className="w-5 h-5 object-contain"
+         />
         <a 
           href="https://www.performance.gr/en/" 
           target="_blank" 
