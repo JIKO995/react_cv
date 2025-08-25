@@ -281,7 +281,7 @@ export default function App() {
           { name: "Strategic Portfolio Management", file: "ServiceNow-SPM.pdf", short: "SPM" },
         ].map((cert) => (
           <li key={cert.short} className="flex items-center gap-2">
-            Certified Implementation Specialist – {cert.name}
+            Certified – {cert.name}
             <motion.a
               whileHover={{ scale: 1.05, x: 3 }}
               href={`/${cert.file}`}
