@@ -300,16 +300,35 @@ export default function App() {
 </Section>
 
           {/* Education */}
-          <Section id="education" title="Education">
-            <div className="space-y-2">
-              <p className="font-semibold text-blue-700">Integrated MSc in Computer Engineering & Informatics</p>
-              <p className="text-sm text-gray-600">University of Patras | 2015 – 2021 | GPA: 6.62</p>
-              <ul className="list-disc ml-6 space-y-1">
-                <li className="text-gray-700">Focused on system design, software architecture, and programming languages.</li>
-                <li className="text-gray-700">Completed projects involving automation, cloud computing, and software development.</li>
-              </ul>
-            </div>
-          </Section>
+<Section id="education" title="Education">
+  <div className="space-y-2">
+    <p className="font-semibold text-blue-700">
+      <a 
+        href="https://www.ceid.upatras.gr/en/home/" 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        className="hover:underline"
+      >
+        Integrated MSc in Computer Engineering & Informatics
+      </a>
+    </p>
+    <p className="text-sm text-gray-600">
+      <a 
+        href="https://www.upatras.gr/en/" 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        className="hover:underline"
+      >
+        University of Patras
+      </a> 
+      {" "} | 2015 – 2021 | GPA: 6.62
+    </p>
+    <ul className="list-disc ml-6 space-y-1">
+      <li className="text-gray-700">Focused on system design, software architecture, and programming languages.</li>
+      <li className="text-gray-700">Completed projects involving automation, cloud computing, and software development.</li>
+    </ul>
+  </div>
+</Section>
 
           {/* Experience */}
           <Section id="experience" title="Professional Experience">
