@@ -231,62 +231,69 @@ export default function App() {
           {/* Certifications Tree */}
 <Section id="certifications" title="Certifications">
   <ul className="list-none ml-4 space-y-3 border-l border-gray-300 pl-4">
-    {/* Root Node */}
+    {/* Root: System Administrator */}
     <li className="relative">
       <span className="font-semibold">System Administrator</span>
-      <motion.a
-        whileHover={{ scale: 1.05, x: 3 }}
-        href="/ServiceNow-CSA.pdf"
-        download="ServiceNow-CSA.pdf"
-        className="ml-2 inline-flex items-center gap-1 text-sm px-3 py-1 rounded-full border border-gray-300 hover:bg-gray-100 transition"
-        title="Download CSA Certificate"
-      >
-        <Download size={14} />
-        <strong>(CSA)</strong>
-      </motion.a>
-
-      {/* Tree Branches */}
       <ul className="list-none ml-6 mt-2 space-y-2 border-l border-gray-200 pl-4">
-        {/* Branch 1: Developer */}
-        <li className="relative">
-          <span className="font-semibold">Developer</span>
+        <li className="flex items-center gap-2">
+          ServiceNow Certified System Administrator
+          <motion.a
+            whileHover={{ scale: 1.05, x: 3 }}
+            href="/ServiceNow-CSA.pdf"
+            download="ServiceNow-CSA.pdf"
+            className="inline-flex items-center gap-1 text-sm px-3 py-1 rounded-full border border-gray-300 hover:bg-gray-100 transition"
+            title="Download CSA Certificate"
+          >
+            <Download size={14} />
+            <strong>(CSA)</strong>
+          </motion.a>
+        </li>
+      </ul>
+    </li>
+
+    {/* Branch 1: Developer */}
+    <li className="relative">
+      <span className="font-semibold">Developer</span>
+      <ul className="list-none ml-6 mt-2 space-y-2 border-l border-gray-200 pl-4">
+        <li className="flex items-center gap-2">
+          ServiceNow Certified Application Developer
           <motion.a
             whileHover={{ scale: 1.05, x: 3 }}
             href="/ServiceNow-CAD.pdf"
             download="ServiceNow-CAD.pdf"
-            className="ml-2 inline-flex items-center gap-1 text-sm px-3 py-1 rounded-full border border-gray-300 hover:bg-gray-100 transition"
+            className="inline-flex items-center gap-1 text-sm px-3 py-1 rounded-full border border-gray-300 hover:bg-gray-100 transition"
             title="Download CAD Certificate"
           >
             <Download size={14} />
             <strong>(CAD)</strong>
           </motion.a>
         </li>
+      </ul>
+    </li>
 
-        {/* Branch 2: Implementation Specialists */}
-        <li className="relative">
-          <span className="font-semibold">Implementation Specialist</span>
-          <ul className="list-none ml-6 mt-2 space-y-2 border-l border-gray-200 pl-4">
-            {[
-              { name: "IT Service Management", file: "ServiceNow-ITSM.pdf", short: "ITSM" },
-              { name: "Customer Service Management", file: "ServiceNow-CSM.pdf", short: "CSM" },
-              { name: "Strategic Portfolio Management", file: "ServiceNow-SPM.pdf", short: "SPM" },
-            ].map((cert) => (
-              <li key={cert.short} className="flex items-center gap-2">
-                {cert.name}
-                <motion.a
-                  whileHover={{ scale: 1.05, x: 3 }}
-                  href={`/${cert.file}`}
-                  download={cert.file}
-                  className="ml-2 inline-flex items-center gap-1 text-sm px-3 py-1 rounded-full border border-gray-300 hover:bg-gray-100 transition"
-                  title={`Download ${cert.short} Certificate`}
-                >
-                  <Download size={14} />
-                  <strong>({cert.short})</strong>
-                </motion.a>
-              </li>
-            ))}
-          </ul>
-        </li>
+    {/* Branch 2: Implementation Specialist */}
+    <li className="relative">
+      <span className="font-semibold">Implementation Specialist</span>
+      <ul className="list-none ml-6 mt-2 space-y-2 border-l border-gray-200 pl-4">
+        {[
+          { name: "IT Service Management", file: "ServiceNow-ITSM.pdf", short: "ITSM" },
+          { name: "Customer Service Management", file: "ServiceNow-CSM.pdf", short: "CSM" },
+          { name: "Strategic Portfolio Management", file: "ServiceNow-SPM.pdf", short: "SPM" },
+        ].map((cert) => (
+          <li key={cert.short} className="flex items-center gap-2">
+            ServiceNow Certified Implementation Specialist – {cert.name}
+            <motion.a
+              whileHover={{ scale: 1.05, x: 3 }}
+              href={`/${cert.file}`}
+              download={cert.file}
+              className="inline-flex items-center gap-1 text-sm px-3 py-1 rounded-full border border-gray-300 hover:bg-gray-100 transition"
+              title={`Download ${cert.short} Certificate`}
+            >
+              <Download size={14} />
+              <strong>({cert.short})</strong>
+            </motion.a>
+          </li>
+        ))}
       </ul>
     </li>
   </ul>
