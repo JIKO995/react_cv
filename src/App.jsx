@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Download, ChevronDown, Linkedin, Github, Gmail } from "lucide-react";
+import { Download, ChevronDown, Linkedin, Github } from "lucide-react";
 import profilePic from "./unnamed (2).jpg";
 
 export default function App() {
@@ -144,10 +144,9 @@ export default function App() {
                 </a>
                 <a
                   href="mailto:panosgaz3@gmail.com"
-                  className="inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-full border border-gray-200 hover:bg-gray-100 transition"
+                  className="inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-full border border-blue-600 text-blue-600 hover:bg-blue-50 transition"
                   title="Send Email"
                 >
-                  <Gmail size={16} />
                   Email
                 </a>
               </div>
