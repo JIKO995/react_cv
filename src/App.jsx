@@ -343,7 +343,7 @@ export default function App() {
           className="w-5 h-5 object-contain"
         />
         <a 
-          href="https://www.performance.gr/en/" 
+          href="https://www.performance.gr/" 
           target="_blank" 
           rel="noopener noreferrer" 
           className="hover:underline"
