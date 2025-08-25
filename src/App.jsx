@@ -329,7 +329,7 @@ export default function App() {
     </ul>
   </div>
 </Section>
-
+          
           {/* Experience */}
 <Section id="experience" title="Professional Experience">
   <div className="space-y-5">
