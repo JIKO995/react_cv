@@ -338,7 +338,7 @@ export default function App() {
       <p className="font-semibold text-blue-700 flex items-center gap-2">
         {/* Icon/Logo Placeholder */}
         <img 
-          src="/logos/performance-tech.png" 
+          src="/performance-tech.png" 
           alt="Performance Technologies Logo" 
           className="w-5 h-5 object-contain"
         />
@@ -367,7 +367,7 @@ export default function App() {
       <p className="font-semibold text-blue-700 flex items-center gap-2">
         {/* Icon/Logo Placeholder */}
         <img 
-          src="/logos/deloitte.png" 
+          src="/deloitte.png" 
           alt="Deloitte Logo" 
           className="w-5 h-5 object-contain"
         />
