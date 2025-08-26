@@ -208,7 +208,7 @@ Certifications: CSA, CAD, ITSM, CSM, SPM
       href="https://www.performance.gr/"
       target="_blank"
       rel="noopener noreferrer"
-      className="text-blue-600 underline"
+      className="text-blue-800 underline"
     >
       Performance Technologies S.A.
     </a>
