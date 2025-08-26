@@ -61,7 +61,7 @@ Certifications: CSA, CAD, ITSM, CSM, SPM
         <div className="bg-white/90 border border-gray-200 rounded-2xl shadow-sm hover:shadow-lg transition-shadow duration-300">
           <button
             id={`${id}-header`}
-            className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left bg-white rounded-2xl hover:bg-blue-50 transition"
+            className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left bg-white rounded-2xl hover:bg-blue-100 transition"
             onClick={() => setOpenSection(isOpen ? null : id)}
             aria-expanded={isOpen}
             aria-controls={`${id}-panel`}
