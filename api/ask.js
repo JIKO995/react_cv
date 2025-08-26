@@ -1,5 +1,7 @@
+export const config = {
+  runtime: "nodejs", 
+};
 import OpenAI from "openai";
-
 const apiKey = process.env.OPENAI_API_KEY;
 if (!apiKey) {
   console.error("Missing OPENAI_API_KEY");
