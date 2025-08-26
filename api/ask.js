@@ -1,6 +1,11 @@
 import OpenAI from "openai";
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const apiKey = process.env.OPENAI_API_KEY;
+if (!apiKey) {
+  console.error("Missing OPENAI_API_KEY");
+}
+
+const openai = new OpenAI({ apiKey });
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
