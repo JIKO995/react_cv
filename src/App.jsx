@@ -385,15 +385,15 @@ Certifications: CSA, CAD, ITSM, CSM, SPM
     </div>
   </div>
 </Section>
-          {/* Skills */}
-          <Section id="skills" title="Technical Skills">
-            <div className="space-y-2 text-gray-700">
-              <div><strong>ServiceNow:</strong> ITSM, CSM, SPM, Application Development, UI/UX Customization</div>
-              <div><strong>Programming:</strong> JavaScript, HTML5, CSS3, Python, SQL</div>
-              <div><strong>Tools:</strong> Git, Jenkins, VS Code, Eclipse</div>
-              <div><strong>Methodologies:</strong> Agile/Scrum, ITIL Framework</div>
-            </div>
-          </Section>
+         {/* Skills */}
+<Section id="skills" title="Technical Skills">
+  <div className="space-y-2 text-gray-700">
+    <div><strong>ServiceNow:</strong> ITSM, CSM, SPM, Application Development, UI/UX Customization</div>
+    <div><strong>Programming & Scripting:</strong> JavaScript, Python, HTML5, CSS3, SQL</div>
+    <div><strong>Tools & Platforms:</strong> Git, Jenkins, VS Code, Eclipse</div>
+    <div><strong>Methodologies:</strong> Agile/Scrum, ITIL Framework, DevOps Practices</div>
+  </div>
+</Section>
 
           {/* Contact */}
           <Section id="contact" title="Contact">
