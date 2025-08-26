@@ -49,7 +49,7 @@ Certifications: ServiceNow CSA, CAD, ITSM, CSM, SPM
           onClick={() => setOpen(!open)}
           className="bg-blue-600 text-white px-3 py-1 rounded-full shadow-lg hover:bg-blue-700 transition"
         >
-          {open ? "Close AI" : "Ask me more about Panos"}
+          {open ? "X" : "Ask me more about Panos"}
         </button>
       </div>
 
