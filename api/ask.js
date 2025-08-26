@@ -25,11 +25,12 @@ export default async function handler(req, res) {
       });
 
       res.status(200).json({ answer: completion.choices[0].message.content });
-    } catch (err) {
-      console.error(err);
-      res.status(500).json({ answer: "Error: Could not generate a response." });
-    }
+   } catch (err) {
+  console.error("OpenAI API error:", err.response?.data || err.message || err);
+  res.status(500).json({ answer: "Error: Could not generate a response." });
+}
   } else {
     res.status(405).end();
   }
 }
+
