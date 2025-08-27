@@ -407,11 +407,11 @@ Certifications: CSA, CAD, ITSM, CSM, SPM
                 <span className="text-sm text-gray-600">+30 6985959766</span>
               </div>
             </div>
-          </Section>
+{/*           </Section>
           {/* --- AI Chat Component --- */}
 <AIChat knowledge={knowledge} />
         </main>
-      </div>
+      </div> */}
     </>
   );
 }
