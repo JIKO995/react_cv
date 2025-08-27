@@ -409,9 +409,9 @@ Certifications: CSA, CAD, ITSM, CSM, SPM
             </div>
 {/*           </Section>
           {/* --- AI Chat Component --- */}
-<AIChat knowledge={knowledge} />
+{/* <AIChat knowledge={knowledge} />
         </main>
-      </div> */}
+      </div> */} */}
     </>
   );
 }
