@@ -42,27 +42,26 @@ Certifications: CSA, CAD, ITSM, CSM, SPM
   // IntersectionObserver to track active section
 useEffect(() => {
   const handleScroll = () => {
-    let closestSection = sections[0].id;
-    let minDistance = Infinity;
+    let current = sections[0].id; // default
+    const offset = 120; // distance from top for triggering active section
 
-    sections.forEach((section) => {
+    for (let section of sections) {
       const el = document.getElementById(section.id);
       if (el) {
         const top = el.getBoundingClientRect().top;
-        if (top <= 150 && top >= -el.offsetHeight) { // section is in or near viewport
-          if (150 - top < minDistance) {
-            minDistance = 150 - top;
-            closestSection = section.id;
-          }
+        if (top - offset <= 0) {
+          current = section.id;
+        } else {
+          break; // sections are in order, stop at first below offset
         }
       }
-    });
+    }
 
-    setActiveSection(closestSection);
+    setActiveSection(current);
   };
 
   window.addEventListener("scroll", handleScroll);
-  handleScroll(); // initial check
+  handleScroll(); // initial call
   return () => window.removeEventListener("scroll", handleScroll);
 }, [sections]);
 
