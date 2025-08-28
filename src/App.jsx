@@ -33,11 +33,12 @@ Certifications: CSA, CAD, ITSM, CSM, SPM
     []
   );
 
-  const handleNavClick = (id) => (e) => {
-    e.preventDefault();
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
-    setOpenSection(id);
-  };
+ const handleNavClick = (id) => (e) => {
+  e.preventDefault();
+  document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  setOpenSection(id);       // opens the accordion
+  setActiveSection(id);     // sets the navbar highlight immediately
+};
 
   // IntersectionObserver to track active section
 useEffect(() => {
