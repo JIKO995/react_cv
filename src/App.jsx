@@ -166,15 +166,17 @@ Certifications: CSA, CAD, ITSM, CSM, SPM
   return (
     <>
       <Helmet>
-        <title>Panagiotis Gkantzos | ServiceNow Consultant & Developer</title>
-        <meta
-          name="description"
-          content="Portfolio of Panagiotis Gkantzos - ServiceNow Technical Consultant & Developer, showcasing skills, certifications, education, and experience."
-        />
-        <meta name="keywords" content="ServiceNow, Developer, Consultant, ITSM, CSM, SPM, Panagiotis Gkantzos" />
-        <meta name="author" content="Panagiotis Gkantzos" />
-      </Helmet>
-
+  <title>Panagiotis Gkantzos | ServiceNow Consultant & Developer</title>
+  <meta
+    name="description"
+    content="Panagiotis Gkantzos - ServiceNow Technical Consultant & Developer. Showcasing skills, certifications, education, and experience in ITSM, CSM, SPM, and application development."
+  />
+  <meta
+    name="keywords"
+    content="ServiceNow, ITSM, CSM, SPM, Developer, Consultant, Panagiotis Gkantzos, Certifications, Education, Professional Experience, Technical Skills"
+  />
+  <meta name="author" content="Panagiotis Gkantzos" />
+</Helmet>
       <div className="bg-gradient-to-b from-gray-50 via-white to-gray-100 min-h-screen text-gray-800">
         {/* Navbar */}
         <nav className="fixed top-0 left-0 right-0 z-50 bg-gray-50/90 backdrop-blur-md border-b border-gray-300 shadow-md">
@@ -291,8 +293,9 @@ Certifications: CSA, CAD, ITSM, CSM, SPM
                 className="w-28 h-28 rounded-full object-cover ring-4 ring-indigo-500/20 hover:scale-105 hover:shadow-lg transition-transform duration-300"
               />
               <div className="flex-1 space-y-2">
-                <h1 className="text-2xl font-bold text-gray-800">Panagiotis Gkantzos</h1>
-                <p className="text-indigo-600 font-medium">ServiceNow Technical Consultant & Developer</p>
+                <h1 className="text-3xl font-bold text-gray-800 mb-2">
+  Panagiotis Gkantzos - ServiceNow Technical Consultant & Developer
+</h1>
                 <div className="flex flex-wrap gap-2 mt-1">
                   <a
                     href="https://www.linkedin.com/in/panagiotis-gkantzos-341909b5"
