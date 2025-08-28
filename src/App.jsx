@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import { Download, ChevronDown, Linkedin, Github } from "lucide-react";
 import { Helmet } from "react-helmet-async";
@@ -8,6 +8,7 @@ import AIChat from "./AIChat";
 export default function App() {
   const [openSection, setOpenSection] = useState("profile");
   const [activeSection, setActiveSection] = useState("profile");
+  const navRefs = useRef({}); // Refs for navbar items
 
   const knowledge = `
 Name: Panagiotis Gkantzos
@@ -37,45 +38,35 @@ Certifications: CSA, CAD, ITSM, CSM, SPM
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
     setOpenSection(id);
   };
-  const [underlineStyle, setUnderlineStyle] = useState({ width: 0, left: 0 });
 
-useEffect(() => {
-  const el = document.querySelector(`#nav-${activeSection}`);
-  if (el) {
-    setUnderlineStyle({ width: el.offsetWidth, left: el.offsetLeft });
-  }
-}, [activeSection]);
-
-  // Intersection observer to highlight active section
+  // IntersectionObserver to track active section
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
+          if (entry.isIntersecting) setActiveSection(entry.target.id);
         });
       },
       { threshold: 0.6 }
     );
-
     sections.forEach((section) => {
       const el = document.getElementById(section.id);
       if (el) observer.observe(el);
     });
-
     return () => observer.disconnect();
   }, [sections]);
 
   // Scroll progress bar
   const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001,
-  });
+  const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
 
-  // Section component with animation
+  // Navbar underline position
+  const [underlineStyle, setUnderlineStyle] = useState({ width: 0, left: 0 });
+  useEffect(() => {
+    const current = navRefs.current[activeSection];
+    if (current) setUnderlineStyle({ width: current.offsetWidth, left: current.offsetLeft });
+  }, [activeSection]);
+
   const Section = ({ id, title, children }) => {
     const isOpen = openSection === id;
     const toggle = () => setOpenSection(isOpen ? null : id);
@@ -139,22 +130,18 @@ useEffect(() => {
 
       <div className="bg-gradient-to-b from-gray-50 via-white to-gray-100 min-h-screen text-gray-800">
         {/* Navbar */}
-        <nav
-          className="fixed top-0 left-0 right-0 z-50 bg-gray-50/90 backdrop-blur-md border-b border-gray-300 shadow-md"
-          role="navigation"
-          aria-label="Main Navigation"
-        >
+        <nav className="fixed top-0 left-0 right-0 z-50 bg-gray-50/90 backdrop-blur-md border-b border-gray-300 shadow-md">
           <div className="max-w-4xl mx-auto flex items-center justify-between px-4 sm:px-6 py-3 relative">
             <div className="font-bold text-lg text-indigo-700">Panagiotis Gkantzos</div>
 
             <div className="flex items-center gap-3 relative">
               {sections.map((s) => (
                 <a
-                  id={`nav-${s.id}`}
                   key={s.id}
                   href={"#" + s.id}
+                  ref={(el) => (navRefs.current[s.id] = el)}
                   onClick={handleNavClick(s.id)}
-                  className={`text-sm px-2 py-1 rounded relative no-underline hover:underline transition ${
+                  className={`text-sm px-2 py-1 relative transition ${
                     activeSection === s.id ? "text-indigo-600 font-semibold" : "text-gray-700"
                   }`}
                 >
@@ -164,11 +151,10 @@ useEffect(() => {
 
               {/* Active underline */}
               <motion.div
-  className="absolute bottom-0 h-[2px] bg-indigo-600 rounded-full"
-  layout
-  style={underlineStyle}
-  transition={{ type: "spring", stiffness: 300, damping: 30 }}
-/>
+                className="absolute bottom-0 h-[2px] bg-indigo-600 rounded-full"
+                style={underlineStyle}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              />
             </div>
 
             <a
@@ -177,11 +163,10 @@ useEffect(() => {
               className="inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-full border border-gray-300 hover:bg-indigo-50 transition"
               title="Download CV as PDF"
             >
-              <Download size={16} />
-              PDF-CV
+              <Download size={16} /> PDF-CV
             </a>
 
-            {/* Scroll progress bar */}
+            {/* Scroll progress */}
             <motion.div
               className="fixed top-0 left-0 right-0 h-[4px] bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-500 origin-left z-50"
               style={{ scaleX }}
@@ -205,16 +190,13 @@ useEffect(() => {
               />
               <div className="flex-1 space-y-2">
                 <h1 className="text-2xl font-bold text-gray-800">Panagiotis Gkantzos</h1>
-                <p className="text-indigo-600 font-medium">
-                  ServiceNow Technical Consultant & Developer
-                </p>
+                <p className="text-indigo-600 font-medium">ServiceNow Technical Consultant & Developer</p>
                 <div className="flex flex-wrap gap-2 mt-1">
                   <a
                     href="https://www.linkedin.com/in/panagiotis-gkantzos-341909b5"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-full border border-indigo-600 text-indigo-600 hover:bg-indigo-50 transition"
-                    title="Visit LinkedIn Profile"
                   >
                     <Linkedin size={16} /> LinkedIn
                   </a>
@@ -223,14 +205,12 @@ useEffect(() => {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-full border border-indigo-600 text-indigo-600 hover:bg-indigo-50 transition"
-                    title="Visit Github Profile"
                   >
                     <Github size={16} /> Github
                   </a>
                   <a
                     href="mailto:panosgaz3@gmail.com"
                     className="inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-full border border-indigo-600 text-indigo-600 hover:bg-indigo-50 transition"
-                    title="Send Email"
                   >
                     Email
                   </a>
@@ -239,7 +219,7 @@ useEffect(() => {
             </div>
           </motion.div>
 
-          {/* Sections */}
+          {/* === SECTIONS === */}
           <Section id="profile" title="Profile">
             <p className="leading-relaxed indent-8 mb-2">
               I am a Computer Engineer with a Master's degree and expertise in enterprise software development. As a ServiceNow Developer at{" "}
@@ -274,7 +254,6 @@ useEffect(() => {
                       href="/ServiceNow-CSA.pdf"
                       download="ServiceNow-CSA.pdf"
                       className="inline-flex items-center gap-1 text-sm px-3 py-1 rounded-full border border-gray-300 hover:bg-gray-100 transition"
-                      title="Download CSA Certificate"
                     >
                       <Download size={14} />
                       <strong>(CSA)</strong>
@@ -294,7 +273,6 @@ useEffect(() => {
                       href="/ServiceNow-CAD.pdf"
                       download="ServiceNow-CAD.pdf"
                       className="inline-flex items-center gap-1 text-sm px-3 py-1 rounded-full border border-gray-300 hover:bg-gray-100 transition"
-                      title="Download CAD Certificate"
                     >
                       <Download size={14} />
                       <strong>(CAD)</strong>
@@ -319,7 +297,6 @@ useEffect(() => {
                         href={`/${cert.file}`}
                         download={cert.file}
                         className="inline-flex items-center gap-1 text-sm px-3 py-1 rounded-full border border-gray-300 hover:bg-gray-100 transition"
-                        title={`Download ${cert.short} Certificate`}
                       >
                         <Download size={14} />
                         <strong>({cert.short})</strong>
@@ -334,29 +311,29 @@ useEffect(() => {
           <Section id="education" title="Education">
             <div className="space-y-2">
               <p className="font-semibold text-indigo-700">
-                <a 
-                  href="https://www.ceid.upatras.gr/en/home/" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
+                <a
+                  href="https://www.ceid.upatras.gr/en/home/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="hover:underline"
                 >
                   Integrated MSc in Computer Engineering & Informatics
                 </a>
               </p>
               <p className="text-sm text-gray-600">
-                <a 
-                  href="https://www.upatras.gr/en/" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
+                <a
+                  href="https://www.upatras.gr/en/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="hover:underline"
                 >
                   University of Patras
-                </a> 
-                {" "} | 2015 – 2021 | GPA: 6.62
+                </a>{" "}
+                | 2015 – 2021 | GPA: 6.62
               </p>
-              <ul className="list-disc ml-6 space-y-1">
-                <li className="text-gray-700">Focused on system design, software architecture, and programming languages.</li>
-                <li className="text-gray-700">Completed projects involving automation, cloud computing, and software development.</li>
+              <ul className="list-disc ml-6 space-y-1 text-gray-700">
+                <li>Focused on system design, software architecture, and programming languages.</li>
+                <li>Completed projects involving automation, cloud computing, and software development.</li>
               </ul>
             </div>
           </Section>
@@ -367,23 +344,21 @@ useEffect(() => {
               <div>
                 <p className="font-semibold text-indigo-700 flex items-center gap-2">
                   <img
-                      src="/logos/performance-tech.png"
-                       alt="Performance Technologies Logo"
-                       className="w-5 h-5 object-contain"
-                   />
-                  <a 
-                    href="https://www.performance.gr/en/" 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
+                    src="/logos/performance-tech.png"
+                    alt="Performance Technologies Logo"
+                    className="w-5 h-5 object-contain"
+                  />
+                  <a
+                    href="https://www.performance.gr/en/"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="hover:underline"
                   >
                     Performance Technologies S.A.
                   </a>
                   <span className="text-gray-700 font-normal">| Athens, Greece (Remote)</span>
                 </p>
-                <p className="text-sm text-gray-600 italic">
-                  ServiceNow Consultant & Developer | Jul 2024 – Present
-                </p>
+                <p className="text-sm text-gray-600 italic">ServiceNow Consultant & Developer | Jul 2024 – Present</p>
                 <ul className="list-disc ml-6 space-y-1 text-gray-700">
                   <li>Lead ServiceNow solution implementations for ITSM, CSM, and SPM needs.</li>
                   <li>Configuration and customization of ServiceNow modules.</li>
@@ -394,24 +369,13 @@ useEffect(() => {
               {/* Job 2 */}
               <div>
                 <p className="font-semibold text-indigo-700 flex items-center gap-2">
-                  <img 
-                    src="/logos/deloitte.png"
-                    alt="Deloitte Logo" 
-                    className="w-5 h-5 object-contain"
-                  />
-                  <a 
-                    href="https://www.deloitte.com/" 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="hover:underline"
-                  >
+                  <img src="/logos/deloitte.png" alt="Deloitte Logo" className="w-5 h-5 object-contain" />
+                  <a href="https://www.deloitte.com/" target="_blank" rel="noopener noreferrer" className="hover:underline">
                     Deloitte (DACC)
                   </a>
                   <span className="text-gray-700 font-normal">| Patras, Greece (Hybrid)</span>
                 </p>
-                <p className="text-sm text-gray-600 italic">
-                  ServiceNow Business Analyst & Developer | Oct 2022 – Jul 2024
-                </p>
+                <p className="text-sm text-gray-600 italic">ServiceNow Business Analyst & Developer | Oct 2022 – Jul 2024</p>
                 <ul className="list-disc ml-6 space-y-1 text-gray-700">
                   <li>Gathered requirements and translated them into technical specifications.</li>
                   <li>Conducted workshops for ITSM solution optimization.</li>
@@ -423,10 +387,18 @@ useEffect(() => {
 
           <Section id="skills" title="Technical Skills">
             <div className="space-y-2 text-gray-700">
-              <div><strong>ServiceNow:</strong> ITSM, CSM, SPM, Application Development, UI/UX Customization</div>
-              <div><strong>Programming & Scripting:</strong> JavaScript, Python, HTML5, CSS3, SQL</div>
-              <div><strong>Tools & Platforms:</strong> Git, Jenkins, VS Code, Eclipse</div>
-              <div><strong>Methodologies:</strong> Agile/Scrum, ITIL Framework, DevOps Practices</div>
+              <div>
+                <strong>ServiceNow:</strong> ITSM, CSM, SPM, Application Development, UI/UX Customization
+              </div>
+              <div>
+                <strong>Programming & Scripting:</strong> JavaScript, Python, HTML5, CSS3, SQL
+              </div>
+              <div>
+                <strong>Tools & Platforms:</strong> Git, Jenkins, VS Code, Eclipse
+              </div>
+              <div>
+                <strong>Methodologies:</strong> Agile/Scrum, ITIL Framework, DevOps Practices
+              </div>
             </div>
           </Section>
 
@@ -434,7 +406,9 @@ useEffect(() => {
             <div className="space-y-2 text-gray-700">
               <div>
                 <strong>Email:</strong>{" "}
-                <a href="mailto:panosgaz3@gmail.com" className="underline">panosgaz3@gmail.com</a>
+                <a href="mailto:panosgaz3@gmail.com" className="underline">
+                  panosgaz3@gmail.com
+                </a>
               </div>
               <div>
                 <strong>Phone:</strong>{" "}
@@ -443,12 +417,13 @@ useEffect(() => {
             </div>
           </Section>
 
-          {/* Optional AI Chat */}
+          {/* AI Chat Component */}
           {/* <AIChat knowledge={knowledge} /> */}
         </main>
       </div>
     </>
   );
 }
+
 
 
