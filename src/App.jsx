@@ -40,19 +40,23 @@ Certifications: CSA, CAD, ITSM, CSM, SPM
   };
 
   // IntersectionObserver to track active section
- useEffect(() => {
+useEffect(() => {
   const handleScroll = () => {
-    let currentSection = "profile";
+    let closestSection = sections[0].id;
+    let minDistance = Infinity;
+
     sections.forEach((section) => {
       const el = document.getElementById(section.id);
       if (el) {
-        const rect = el.getBoundingClientRect();
-        if (rect.top <= 100) { // offset from top
-          currentSection = section.id;
+        const distance = Math.abs(el.getBoundingClientRect().top - 100); // distance from offset
+        if (distance < minDistance) {
+          minDistance = distance;
+          closestSection = section.id;
         }
       }
     });
-    setActiveSection(currentSection);
+
+    setActiveSection(closestSection);
   };
 
   window.addEventListener("scroll", handleScroll);
