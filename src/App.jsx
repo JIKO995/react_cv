@@ -48,10 +48,12 @@ useEffect(() => {
     sections.forEach((section) => {
       const el = document.getElementById(section.id);
       if (el) {
-        const distance = Math.abs(el.getBoundingClientRect().top - 100); // distance from offset
-        if (distance < minDistance) {
-          minDistance = distance;
-          closestSection = section.id;
+        const top = el.getBoundingClientRect().top;
+        if (top <= 150 && top >= -el.offsetHeight) { // section is in or near viewport
+          if (150 - top < minDistance) {
+            minDistance = 150 - top;
+            closestSection = section.id;
+          }
         }
       }
     });
