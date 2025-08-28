@@ -9,6 +9,7 @@ export default function App() {
   const [openSection, setOpenSection] = useState("profile");
   const [activeSection, setActiveSection] = useState("profile");
   const navRefs = useRef({}); // Refs for navbar items
+  const [openMenu, setOpenMenu] = useState(false);
 
   const knowledge = `
 Name: Panagiotis Gkantzos
@@ -177,32 +178,78 @@ useEffect(() => {
           <div className="max-w-4xl mx-auto flex items-center justify-between px-4 sm:px-6 py-3 relative">
             <div className="font-bold text-lg text-indigo-700">Panagiotis Gkantzos</div>
 
-            <div className="flex items-center gap-3 relative">
-              {sections.map((s) => (
-                <a
-                  key={s.id}
-                  href={"#" + s.id}
-                  ref={(el) => (navRefs.current[s.id] = el)}
-                  onClick={handleNavClick(s.id)}
-                  className={`text-sm px-2 py-1 relative transition ${
-  activeSection === s.id
-    ? "text-indigo-600 font-semibold"
-    : "text-gray-700 hover:text-indigo-700 hover:bg-indigo-50 rounded transition-colors"
-}`}
-                >
-                  {s.label}
-                </a>
-              ))}
+            {/* Desktop links */}
+<div className="hidden sm:flex items-center gap-3 relative">
+  {sections.map((s) => (
+    <a
+      key={s.id}
+      href={"#" + s.id}
+      ref={(el) => (navRefs.current[s.id] = el)}
+      onClick={handleNavClick(s.id)}
+      className={`text-sm px-2 py-1 relative transition ${
+        activeSection === s.id
+          ? "text-indigo-600 font-semibold"
+          : "text-gray-700 hover:text-indigo-700 hover:bg-indigo-50 rounded transition-colors"
+      }`}
+    >
+      {s.label}
+    </a>
+  ))}
 
-              {/* Active underline */}
-              <motion.div
-  className="absolute bottom-0 h-[2px] bg-indigo-600 rounded-full"
-  style={{
-    width: underlineStyle.width,
-    left: underlineStyle.left,
-  }}
-  transition={{ type: "spring", stiffness: 500, damping: 35 }}
-/>
+  {/* Active underline */}
+  <motion.div
+    className="absolute bottom-0 h-[2px] bg-indigo-600 rounded-full"
+    style={underlineStyle}
+    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+  />
+</div>
+
+{/* Mobile menu */}
+<div className="sm:hidden relative">
+  <button
+    onClick={() => setOpenMenu((prev) => !prev)}
+    className="p-2 rounded-md border border-gray-300"
+  >
+    {/* Hamburger icon */}
+    <svg
+      className="w-5 h-5 text-gray-700"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M4 6h16M4 12h16M4 18h16"
+      />
+    </svg>
+  </button>
+
+  <AnimatePresence>
+    {openMenu && (
+      <motion.div
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -10 }}
+        className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-50 flex flex-col"
+      >
+        {sections.map((s) => (
+          <a
+            key={s.id}
+            href={"#" + s.id}
+            onClick={() => { handleNavClick(s.id)(); setOpenMenu(false); }}
+            className={`px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 ${
+              activeSection === s.id ? "font-semibold text-indigo-600" : ""
+            }`}
+          >
+            {s.label}
+          </a>
+        ))}
+      </motion.div>
+    )}
+  </AnimatePresence>
+</div>
             </div>
 
             <a
