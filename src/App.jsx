@@ -39,7 +39,40 @@ Certifications: CSA, CAD, ITSM, CSM, SPM
   setOpenSection(id);       // opens the accordion
   setActiveSection(id);     // sets the navbar highlight immediately
 };
+//scroll change
+useEffect(() => {
+  let isScrolling = false;
 
+  const handleWheel = (e) => {
+    if (isScrolling) return; // prevent multiple triggers
+    isScrolling = true;
+
+    const currentIndex = sections.findIndex((s) => s.id === activeSection);
+
+    if (e.deltaY > 0 && currentIndex < sections.length - 1) {
+      // Scroll down
+      const nextSection = document.getElementById(sections[currentIndex + 1].id);
+      nextSection?.scrollIntoView({ behavior: "smooth" });
+      setActiveSection(sections[currentIndex + 1].id);
+      setOpenSection(sections[currentIndex + 1].id); // open accordion if needed
+    } else if (e.deltaY < 0 && currentIndex > 0) {
+      // Scroll up
+      const prevSection = document.getElementById(sections[currentIndex - 1].id);
+      prevSection?.scrollIntoView({ behavior: "smooth" });
+      setActiveSection(sections[currentIndex - 1].id);
+      setOpenSection(sections[currentIndex - 1].id);
+    }
+
+    // Allow next scroll after animation
+    setTimeout(() => {
+      isScrolling = false;
+    }, 600); // match your scroll duration
+  };
+
+  window.addEventListener("wheel", handleWheel, { passive: true });
+
+  return () => window.removeEventListener("wheel", handleWheel);
+}, [activeSection, sections]);
   // IntersectionObserver to track active section
 useEffect(() => {
   const handleScroll = () => {
