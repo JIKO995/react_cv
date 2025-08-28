@@ -152,8 +152,10 @@ useEffect(() => {
                   ref={(el) => (navRefs.current[s.id] = el)}
                   onClick={handleNavClick(s.id)}
                   className={`text-sm px-2 py-1 relative transition ${
-                    activeSection === s.id ? "text-indigo-600 font-semibold" : "text-gray-700"
-                  }`}
+  activeSection === s.id
+    ? "text-indigo-600 font-semibold"
+    : "text-gray-700 hover:text-indigo-700 hover:bg-indigo-50 rounded transition-colors"
+}`}
                 >
                   {s.label}
                 </a>
@@ -161,10 +163,13 @@ useEffect(() => {
 
               {/* Active underline */}
               <motion.div
-                className="absolute bottom-0 h-[2px] bg-indigo-600 rounded-full"
-                style={underlineStyle}
-                transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              />
+  className="absolute bottom-0 h-[2px] bg-indigo-600 rounded-full"
+  style={{
+    width: underlineStyle.width,
+    left: underlineStyle.left,
+  }}
+  transition={{ type: "spring", stiffness: 500, damping: 35 }}
+/>
             </div>
 
             <a
