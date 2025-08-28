@@ -8,8 +8,9 @@ import AIChat from "./AIChat";
 export default function App() {
   const [openSection, setOpenSection] = useState("profile");
   const [activeSection, setActiveSection] = useState("profile");
-  const navRefs = useRef({}); // Refs for navbar items
+  const navRefs = useRef({}); // store refs for navbar items
   const [openMenu, setOpenMenu] = useState(false);
+  const [underlineStyle, setUnderlineStyle] = useState({ width: 0, left: 0 });
 
   const knowledge = `
 Name: Panagiotis Gkantzos
@@ -34,86 +35,90 @@ Certifications: CSA, CAD, ITSM, CSM, SPM
     []
   );
 
- const handleNavClick = (id) => (e) => {
-  e.preventDefault();
-  document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
-  setOpenSection(id);       // opens the accordion
-  setActiveSection(id);     // sets the navbar highlight immediately
-};
-//scroll change
-useEffect(() => {
-  let isScrolling = false;
-
-  const handleWheel = (e) => {
-    if (isScrolling) return; // prevent multiple triggers
-    isScrolling = true;
-
-    const currentIndex = sections.findIndex((s) => s.id === activeSection);
-
-    if (e.deltaY > 0 && currentIndex < sections.length - 1) {
-      // Scroll down
-      const nextSection = document.getElementById(sections[currentIndex + 1].id);
-      nextSection?.scrollIntoView({ behavior: "smooth" });
-      setActiveSection(sections[currentIndex + 1].id);
-      setOpenSection(sections[currentIndex + 1].id); // open accordion if needed
-    } else if (e.deltaY < 0 && currentIndex > 0) {
-      // Scroll up
-      const prevSection = document.getElementById(sections[currentIndex - 1].id);
-      prevSection?.scrollIntoView({ behavior: "smooth" });
-      setActiveSection(sections[currentIndex - 1].id);
-      setOpenSection(sections[currentIndex - 1].id);
-    }
-
-    // Allow next scroll after animation
-    setTimeout(() => {
-      isScrolling = false;
-    }, 600); // match your scroll duration
+  // click handler for desktop links (prevents default, scrolls smoothly)
+  const handleNavClick = (id) => (e) => {
+    e?.preventDefault();
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    setOpenSection(id);    // open accordion
+    setActiveSection(id);  // highlight immediately
+    setOpenMenu(false);    // close mobile menu if open
   };
 
-  window.addEventListener("wheel", handleWheel, { passive: true });
+  // wheel-based section navigation (section-by-section)
+  useEffect(() => {
+    let isScrolling = false;
 
-  return () => window.removeEventListener("wheel", handleWheel);
-}, [activeSection, sections]);
-  // IntersectionObserver to track active section
-useEffect(() => {
-  const handleScroll = () => {
-    let current = sections[0].id; 
-    const offset = 120;
+    const handleWheel = (e) => {
+      if (isScrolling) return;
+      isScrolling = true;
 
-    for (let section of sections) {
-      const el = document.getElementById(section.id);
-      if (el && el.getBoundingClientRect().top - offset <= 0) {
-        current = section.id;
-      } else {
-        break;
+      const currentIndex = sections.findIndex((s) => s.id === activeSection);
+
+      if (e.deltaY > 0 && currentIndex < sections.length - 1) {
+        const nextId = sections[currentIndex + 1].id;
+        document.getElementById(nextId)?.scrollIntoView({ behavior: "smooth" });
+        setActiveSection(nextId);
+        setOpenSection(nextId);
+      } else if (e.deltaY < 0 && currentIndex > 0) {
+        const prevId = sections[currentIndex - 1].id;
+        document.getElementById(prevId)?.scrollIntoView({ behavior: "smooth" });
+        setActiveSection(prevId);
+        setOpenSection(prevId);
       }
-    }
 
-    setActiveSection(current);
-  };
+      setTimeout(() => {
+        isScrolling = false;
+      }, 600); // match smooth scroll duration
+    };
 
-  window.addEventListener("scroll", handleScroll);
-  handleScroll();
-  return () => window.removeEventListener("scroll", handleScroll);
-}, [sections]);
+    window.addEventListener("wheel", handleWheel, { passive: true });
+    return () => window.removeEventListener("wheel", handleWheel);
+  }, [activeSection, sections]);
 
-  // Scroll progress bar
+  // scroll-based active-section detection (fallback / keeps nav in sync while user scrolls)
+  useEffect(() => {
+    const handleScroll = () => {
+      let current = sections[0].id;
+      const offset = 120; // px from top to consider section active
+
+      for (let section of sections) {
+        const el = document.getElementById(section.id);
+        if (el && el.getBoundingClientRect().top - offset <= 0) {
+          current = section.id;
+        } else {
+          break;
+        }
+      }
+
+      setActiveSection(current);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [sections]);
+
+  // scroll progress bar
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
 
-  // Navbar underline position
-  const [underlineStyle, setUnderlineStyle] = useState({ width: 0, left: 0 });
+  // update underline position when activeSection changes
   useEffect(() => {
-    const current = navRefs.current[activeSection];
-    if (current) setUnderlineStyle({ width: current.offsetWidth, left: current.offsetLeft });
+    const el = navRefs.current[activeSection];
+    if (el) {
+      setUnderlineStyle({ width: el.offsetWidth, left: el.offsetLeft });
+    } else {
+      setUnderlineStyle({ width: 0, left: 0 });
+    }
   }, [activeSection]);
 
+  // Section component with accordion + accessibility
   const Section = ({ id, title, children }) => {
     const isOpen = openSection === id;
     const toggle = () => {
-  setOpenSection(isOpen ? null : id);
-  setActiveSection(id); // update navbar highlight immediately
-};
+      setOpenSection(isOpen ? null : id);
+      setActiveSection(id); // ensure nav highlight updates even without scrolling
+    };
 
     return (
       <motion.section
@@ -123,7 +128,7 @@ useEffect(() => {
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.6 }}
+        transition={{ duration: 0.5 }}
       >
         <div className="bg-white border border-gray-200 rounded-2xl shadow-sm hover:shadow-lg transition-shadow duration-300">
           <button
@@ -136,6 +141,7 @@ useEffect(() => {
             <h3 className="text-lg font-semibold text-indigo-800">{title}</h3>
             <ChevronDown className={"transition-transform " + (isOpen ? "rotate-180" : "rotate-0")} />
           </button>
+
           <AnimatePresence initial={false}>
             {isOpen && (
               <motion.div
@@ -165,10 +171,7 @@ useEffect(() => {
           name="description"
           content="Portfolio of Panagiotis Gkantzos - ServiceNow Technical Consultant & Developer, showcasing skills, certifications, education, and experience."
         />
-        <meta
-          name="keywords"
-          content="ServiceNow, Developer, Consultant, ITSM, CSM, SPM, Panagiotis Gkantzos"
-        />
+        <meta name="keywords" content="ServiceNow, Developer, Consultant, ITSM, CSM, SPM, Panagiotis Gkantzos" />
         <meta name="author" content="Panagiotis Gkantzos" />
       </Helmet>
 
@@ -176,99 +179,103 @@ useEffect(() => {
         {/* Navbar */}
         <nav className="fixed top-0 left-0 right-0 z-50 bg-gray-50/90 backdrop-blur-md border-b border-gray-300 shadow-md">
           <div className="max-w-4xl mx-auto flex items-center justify-between px-4 sm:px-6 py-3 relative">
+            {/* Brand */}
             <div className="font-bold text-lg text-indigo-700">Panagiotis Gkantzos</div>
 
-            {/* Desktop links */}
-<div className="hidden sm:flex items-center gap-3 relative">
-  {sections.map((s) => (
-    <a
-      key={s.id}
-      href={"#" + s.id}
-      ref={(el) => (navRefs.current[s.id] = el)}
-      onClick={handleNavClick(s.id)}
-      className={`text-sm px-2 py-1 relative transition ${
-        activeSection === s.id
-          ? "text-indigo-600 font-semibold"
-          : "text-gray-700 hover:text-indigo-700 hover:bg-indigo-50 rounded transition-colors"
-      }`}
-    >
-      {s.label}
-    </a>
-  ))}
+            {/* Links group: desktop + mobile */}
+            <div className="flex items-center gap-3">
+              {/* Desktop links */}
+              <div className="hidden sm:flex items-center gap-3 relative">
+                {sections.map((s) => (
+                  <a
+                    key={s.id}
+                    href={"#" + s.id}
+                    ref={(el) => (navRefs.current[s.id] = el)}
+                    onClick={handleNavClick(s.id)}
+                    className={`text-sm px-2 py-1 relative transition ${
+                      activeSection === s.id
+                        ? "text-indigo-600 font-semibold"
+                        : "text-gray-700 hover:text-indigo-700 hover:bg-indigo-50 rounded transition-colors"
+                    }`}
+                  >
+                    {s.label}
+                  </a>
+                ))}
 
-  {/* Active underline */}
-  <motion.div
-    className="absolute bottom-0 h-[2px] bg-indigo-600 rounded-full"
-    style={underlineStyle}
-    transition={{ type: "spring", stiffness: 300, damping: 30 }}
-  />
-</div>
+                {/* underline for desktop */}
+                <motion.div
+                  className="absolute bottom-0 h-[2px] bg-indigo-600 rounded-full"
+                  style={{
+                    width: underlineStyle.width,
+                    left: underlineStyle.left,
+                  }}
+                  transition={{ type: "spring", stiffness: 400, damping: 35 }}
+                />
+              </div>
 
-{/* Mobile menu */}
-<div className="sm:hidden relative">
-  <button
-    onClick={() => setOpenMenu((prev) => !prev)}
-    className="p-2 rounded-md border border-gray-300"
-  >
-    {/* Hamburger icon */}
-    <svg
-      className="w-5 h-5 text-gray-700"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M4 6h16M4 12h16M4 18h16"
-      />
-    </svg>
-  </button>
+              {/* Mobile menu */}
+              <div className="sm:hidden relative">
+                <button
+                  onClick={() => setOpenMenu((prev) => !prev)}
+                  aria-label="Toggle menu"
+                  className="p-2 rounded-md border border-gray-300 bg-white"
+                >
+                  <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  </svg>
+                </button>
 
-  <AnimatePresence>
-    {openMenu && (
-      <motion.div
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -10 }}
-        className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-50 flex flex-col"
-      >
-        {sections.map((s) => (
-          <a
-            key={s.id}
-            href={"#" + s.id}
-            onClick={() => { handleNavClick(s.id)(); setOpenMenu(false); }}
-            className={`px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 ${
-              activeSection === s.id ? "font-semibold text-indigo-600" : ""
-            }`}
-          >
-            {s.label}
-          </a>
-        ))}
-      </motion.div>
-    )}
-  </AnimatePresence>
-</div>
+                <AnimatePresence>
+                  {openMenu && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -8 }}
+                      className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-50 flex flex-col"
+                    >
+                      {sections.map((s) => (
+                        <a
+                          key={s.id}
+                          href={"#" + s.id}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            document.getElementById(s.id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+                            setOpenSection(s.id);
+                            setActiveSection(s.id);
+                            setOpenMenu(false);
+                          }}
+                          className={`px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 ${
+                            activeSection === s.id ? "font-semibold text-indigo-600" : ""
+                          }`}
+                        >
+                          {s.label}
+                        </a>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             </div>
 
+            {/* CV button */}
             <a
               href="/cv.pdf"
               download="Panagiotis-Gkantzos-CV.pdf"
-              className="inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-full border border-gray-300 hover:bg-indigo-50 transition"
+              className="inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-full border border-gray-300 hover:bg-indigo-50 transition ml-3"
               title="Download CV as PDF"
             >
               <Download size={16} /> PDF-CV
             </a>
-
-            {/* Scroll progress */}
-            <motion.div
-              className="fixed top-0 left-0 right-0 h-[4px] bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-500 origin-left z-50"
-              style={{ scaleX }}
-            />
           </div>
+
+          {/* Scroll progress (full width, fixed) */}
+          <motion.div
+            className="fixed top-0 left-0 right-0 h-[4px] bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-500 origin-left z-50"
+            style={{ scaleX }}
+          />
         </nav>
 
+        {/* Main */}
         <main className="max-w-4xl mx-auto pt-28 pb-16 px-4 sm:px-6">
           {/* Header */}
           <motion.div
@@ -292,6 +299,7 @@ useEffect(() => {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-full border border-indigo-600 text-indigo-600 hover:bg-indigo-50 transition"
+                    title="Visit LinkedIn Profile"
                   >
                     <Linkedin size={16} /> LinkedIn
                   </a>
@@ -300,12 +308,14 @@ useEffect(() => {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-full border border-indigo-600 text-indigo-600 hover:bg-indigo-50 transition"
+                    title="Visit Github Profile"
                   >
                     <Github size={16} /> Github
                   </a>
                   <a
                     href="mailto:panosgaz3@gmail.com"
                     className="inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-full border border-indigo-600 text-indigo-600 hover:bg-indigo-50 transition"
+                    title="Send Email"
                   >
                     Email
                   </a>
@@ -315,6 +325,7 @@ useEffect(() => {
           </motion.div>
 
           {/* === SECTIONS === */}
+
           <Section id="profile" title="Profile">
             <p className="leading-relaxed indent-8 mb-2">
               I am a Computer Engineer with a Master's degree and expertise in enterprise software development. As a ServiceNow Developer at{" "}
@@ -331,14 +342,12 @@ useEffect(() => {
             <p className="leading-relaxed indent-8 mb-2">
               I excel at analyzing complex challenges and delivering innovative, scalable solutions while fostering collaboration and driving results. With a strong foundation in system architecture, software design, and programming, I ensure that every project achieves maximum impact.
             </p>
-            <p className="leading-relaxed indent-8">
-              Passionate about continuous learning and technological innovation, I stay at the forefront of industry trends and actively participate in professional events, leveraging my knowledge to drive excellence and innovation in every engagement.
-            </p>
+            <p className="leading-relaxed indent-8">Passionate about continuous learning and technological innovation, I stay at the forefront of industry trends and actively participate in professional events.</p>
           </Section>
 
           <Section id="certifications" title="Certifications">
             <ul className="list-none ml-4 space-y-3 border-l border-gray-300 pl-4">
-              {/* CSA */}
+              {/* System Administrator */}
               <li className="relative">
                 <span className="font-semibold">System Administrator</span>
                 <ul className="list-none ml-6 mt-2 space-y-2 border-l border-gray-200 pl-4">
@@ -357,7 +366,7 @@ useEffect(() => {
                 </ul>
               </li>
 
-              {/* CAD */}
+              {/* Developer */}
               <li className="relative">
                 <span className="font-semibold">Developer</span>
                 <ul className="list-none ml-6 mt-2 space-y-2 border-l border-gray-200 pl-4">
@@ -406,22 +415,12 @@ useEffect(() => {
           <Section id="education" title="Education">
             <div className="space-y-2">
               <p className="font-semibold text-indigo-700">
-                <a
-                  href="https://www.ceid.upatras.gr/en/home/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:underline"
-                >
+                <a href="https://www.ceid.upatras.gr/en/home/" target="_blank" rel="noopener noreferrer" className="hover:underline">
                   Integrated MSc in Computer Engineering & Informatics
                 </a>
               </p>
               <p className="text-sm text-gray-600">
-                <a
-                  href="https://www.upatras.gr/en/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:underline"
-                >
+                <a href="https://www.upatras.gr/en/" target="_blank" rel="noopener noreferrer" className="hover:underline">
                   University of Patras
                 </a>{" "}
                 | 2015 – 2021 | GPA: 6.62
@@ -435,20 +434,10 @@ useEffect(() => {
 
           <Section id="experience" title="Professional Experience">
             <div className="space-y-5">
-              {/* Job 1 */}
               <div>
                 <p className="font-semibold text-indigo-700 flex items-center gap-2">
-                  <img
-                    src="/logos/performance-tech.png"
-                    alt="Performance Technologies Logo"
-                    className="w-5 h-5 object-contain"
-                  />
-                  <a
-                    href="https://www.performance.gr/en/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:underline"
-                  >
+                  <img src="/logos/performance-tech.png" alt="Performance Technologies Logo" className="w-5 h-5 object-contain" />
+                  <a href="https://www.performance.gr/en/" target="_blank" rel="noopener noreferrer" className="hover:underline">
                     Performance Technologies S.A.
                   </a>
                   <span className="text-gray-700 font-normal">| Athens, Greece (Remote)</span>
@@ -461,7 +450,6 @@ useEffect(() => {
                 </ul>
               </div>
 
-              {/* Job 2 */}
               <div>
                 <p className="font-semibold text-indigo-700 flex items-center gap-2">
                   <img src="/logos/deloitte.png" alt="Deloitte Logo" className="w-5 h-5 object-contain" />
@@ -482,43 +470,28 @@ useEffect(() => {
 
           <Section id="skills" title="Technical Skills">
             <div className="space-y-2 text-gray-700">
-              <div>
-                <strong>ServiceNow:</strong> ITSM, CSM, SPM, Application Development, UI/UX Customization
-              </div>
-              <div>
-                <strong>Programming & Scripting:</strong> JavaScript, Python, HTML5, CSS3, SQL
-              </div>
-              <div>
-                <strong>Tools & Platforms:</strong> Git, Jenkins, VS Code, Eclipse
-              </div>
-              <div>
-                <strong>Methodologies:</strong> Agile/Scrum, ITIL Framework, DevOps Practices
-              </div>
+              <div><strong>ServiceNow:</strong> ITSM, CSM, SPM, Application Development, UI/UX Customization</div>
+              <div><strong>Programming & Scripting:</strong> JavaScript, Python, HTML5, CSS3, SQL</div>
+              <div><strong>Tools & Platforms:</strong> Git, Jenkins, VS Code, Eclipse</div>
+              <div><strong>Methodologies:</strong> Agile/Scrum, ITIL Framework, DevOps Practices</div>
             </div>
           </Section>
 
           <Section id="contact" title="Contact">
             <div className="space-y-2 text-gray-700">
-              <div>
-                <strong>Email:</strong>{" "}
-                <a href="mailto:panosgaz3@gmail.com" className="underline">
-                  panosgaz3@gmail.com
-                </a>
-              </div>
-              <div>
-                <strong>Phone:</strong>{" "}
-                <span className="text-sm text-gray-600">+30 6985959766</span>
-              </div>
+              <div><strong>Email:</strong> <a href="mailto:panosgaz3@gmail.com" className="underline">panosgaz3@gmail.com</a></div>
+              <div><strong>Phone:</strong> <span className="text-sm text-gray-600">+30 6985959766</span></div>
             </div>
           </Section>
 
-          {/* AI Chat Component */}
+          {/* Optional AI Chat (commented out) */}
           {/* <AIChat knowledge={knowledge} /> */}
         </main>
       </div>
     </>
   );
 }
+
 
 
 
