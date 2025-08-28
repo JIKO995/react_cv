@@ -37,6 +37,14 @@ Certifications: CSA, CAD, ITSM, CSM, SPM
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
     setOpenSection(id);
   };
+  const [underlineStyle, setUnderlineStyle] = useState({ width: 0, left: 0 });
+
+useEffect(() => {
+  const el = document.querySelector(`#nav-${activeSection}`);
+  if (el) {
+    setUnderlineStyle({ width: el.offsetWidth, left: el.offsetLeft });
+  }
+}, [activeSection]);
 
   // Intersection observer to highlight active section
   useEffect(() => {
@@ -156,14 +164,11 @@ Certifications: CSA, CAD, ITSM, CSM, SPM
 
               {/* Active underline */}
               <motion.div
-                className="absolute bottom-0 h-[2px] bg-indigo-600 rounded-full"
-                layout
-                style={{
-                  width: document.querySelector(`#nav-${activeSection}`)?.offsetWidth || 0,
-                  left: document.querySelector(`#nav-${activeSection}`)?.offsetLeft || 0,
-                }}
-                transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              />
+  className="absolute bottom-0 h-[2px] bg-indigo-600 rounded-full"
+  layout
+  style={underlineStyle}
+  transition={{ type: "spring", stiffness: 300, damping: 30 }}
+/>
             </div>
 
             <a
