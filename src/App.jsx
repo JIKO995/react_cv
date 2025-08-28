@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import { Download, ChevronDown, Linkedin, Github } from "lucide-react";
-import { Helmet } from "react-helmet-async"; // SEO
+import { Helmet } from "react-helmet-async";
 import profilePic from "./unnamed (2).jpg";
-import AIChat from "./AIChat"; // (kept import; usage is still commented at the bottom)
+import AIChat from "./AIChat";
 
 export default function App() {
   const [openSection, setOpenSection] = useState("profile");
@@ -20,7 +20,6 @@ Experience:
 Certifications: CSA, CAD, ITSM, CSM, SPM
 `;
 
-  // Sections list
   const sections = useMemo(
     () => [
       { id: "profile", label: "Profile" },
@@ -33,22 +32,23 @@ Certifications: CSA, CAD, ITSM, CSM, SPM
     []
   );
 
-  // Smooth nav click
   const handleNavClick = (id) => (e) => {
     e.preventDefault();
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
     setOpenSection(id);
   };
 
-  // Active section highlight
+  // Intersection observer to highlight active section
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) setActiveSection(entry.target.id);
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
         });
       },
-      { rootMargin: "-50% 0px -50% 0px" }
+      { threshold: 0.6 }
     );
 
     sections.forEach((section) => {
@@ -59,7 +59,7 @@ Certifications: CSA, CAD, ITSM, CSM, SPM
     return () => observer.disconnect();
   }, [sections]);
 
-  // Animated scroll progress bar
+  // Scroll progress bar
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
@@ -67,16 +67,10 @@ Certifications: CSA, CAD, ITSM, CSM, SPM
     restDelta: 0.001,
   });
 
-  // Accessible + animated Section wrapper
+  // Section component with animation
   const Section = ({ id, title, children }) => {
     const isOpen = openSection === id;
     const toggle = () => setOpenSection(isOpen ? null : id);
-    const onKeyDown = (e) => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        toggle();
-      }
-    };
 
     return (
       <motion.section
@@ -93,14 +87,11 @@ Certifications: CSA, CAD, ITSM, CSM, SPM
             id={`${id}-header`}
             className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left bg-gray-50 rounded-2xl hover:bg-indigo-50 transition"
             onClick={toggle}
-            onKeyDown={onKeyDown}
             aria-expanded={isOpen}
             aria-controls={`${id}-panel`}
           >
             <h3 className="text-lg font-semibold text-indigo-800">{title}</h3>
-            <ChevronDown
-              className={"transition-transform " + (isOpen ? "rotate-180" : "rotate-0")}
-            />
+            <ChevronDown className={"transition-transform " + (isOpen ? "rotate-180" : "rotate-0")} />
           </button>
           <AnimatePresence initial={false}>
             {isOpen && (
@@ -125,7 +116,6 @@ Certifications: CSA, CAD, ITSM, CSM, SPM
 
   return (
     <>
-      {/* SEO */}
       <Helmet>
         <title>Panagiotis Gkantzos | ServiceNow Consultant & Developer</title>
         <meta
@@ -146,47 +136,52 @@ Certifications: CSA, CAD, ITSM, CSM, SPM
           role="navigation"
           aria-label="Main Navigation"
         >
-          <div className="max-w-4xl mx-auto flex items-center justify-between px-4 sm:px-6 py-3">
+          <div className="max-w-4xl mx-auto flex items-center justify-between px-4 sm:px-6 py-3 relative">
             <div className="font-bold text-lg text-indigo-700">Panagiotis Gkantzos</div>
+
             <div className="flex items-center gap-3 relative">
               {sections.map((s) => (
                 <a
+                  id={`nav-${s.id}`}
                   key={s.id}
                   href={"#" + s.id}
                   onClick={handleNavClick(s.id)}
-                  className={`text-sm px-2 py-1 rounded relative hover:underline transition ${
-                    activeSection === s.id
-                      ? "text-indigo-600 font-semibold"
-                      : "text-gray-700"
+                  className={`text-sm px-2 py-1 rounded relative no-underline hover:underline transition ${
+                    activeSection === s.id ? "text-indigo-600 font-semibold" : "text-gray-700"
                   }`}
                 >
                   {s.label}
-                  {/* Animated active underline */}
-                  {activeSection === s.id && (
-                    <motion.div
-                      layoutId="nav-active"
-                      className="absolute bottom-0 left-0 right-0 h-[2px] bg-indigo-600 rounded-full"
-                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                    />
-                  )}
                 </a>
               ))}
-              <a
-                href="/cv.pdf"
-                download="Panagiotis-Gkantzos-CV.pdf"
-                className="inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-full border border-gray-300 hover:bg-indigo-50 transition"
-                title="Download CV as PDF"
-              >
-                <Download size={16} />
-                PDF-CV
-              </a>
+
+              {/* Active underline */}
+              <motion.div
+                className="absolute bottom-0 h-[2px] bg-indigo-600 rounded-full"
+                layout
+                style={{
+                  width: document.querySelector(`#nav-${activeSection}`)?.offsetWidth || 0,
+                  left: document.querySelector(`#nav-${activeSection}`)?.offsetLeft || 0,
+                }}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              />
             </div>
+
+            <a
+              href="/cv.pdf"
+              download="Panagiotis-Gkantzos-CV.pdf"
+              className="inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-full border border-gray-300 hover:bg-indigo-50 transition"
+              title="Download CV as PDF"
+            >
+              <Download size={16} />
+              PDF-CV
+            </a>
+
+            {/* Scroll progress bar */}
+            <motion.div
+              className="fixed top-0 left-0 right-0 h-[4px] bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-500 origin-left z-50"
+              style={{ scaleX }}
+            />
           </div>
-          {/* Scroll Progress Bar */}
-          <motion.div
-            className="fixed top-0 left-0 right-0 h-[4px] bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-500 origin-left z-50"
-            style={{ scaleX }}
-          />
         </nav>
 
         <main className="max-w-4xl mx-auto pt-28 pb-16 px-4 sm:px-6">
@@ -216,8 +211,7 @@ Certifications: CSA, CAD, ITSM, CSM, SPM
                     className="inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-full border border-indigo-600 text-indigo-600 hover:bg-indigo-50 transition"
                     title="Visit LinkedIn Profile"
                   >
-                    <Linkedin size={16} />
-                    LinkedIn
+                    <Linkedin size={16} /> LinkedIn
                   </a>
                   <a
                     href="https://github.com/JIKO995"
@@ -226,8 +220,7 @@ Certifications: CSA, CAD, ITSM, CSM, SPM
                     className="inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-full border border-indigo-600 text-indigo-600 hover:bg-indigo-50 transition"
                     title="Visit Github Profile"
                   >
-                    <Github size={16} />
-                    Github
+                    <Github size={16} /> Github
                   </a>
                   <a
                     href="mailto:panosgaz3@gmail.com"
@@ -241,7 +234,7 @@ Certifications: CSA, CAD, ITSM, CSM, SPM
             </div>
           </motion.div>
 
-          {/* Profile Section */}
+          {/* Sections */}
           <Section id="profile" title="Profile">
             <p className="leading-relaxed indent-8 mb-2">
               I am a Computer Engineer with a Master's degree and expertise in enterprise software development. As a ServiceNow Developer at{" "}
@@ -263,10 +256,9 @@ Certifications: CSA, CAD, ITSM, CSM, SPM
             </p>
           </Section>
 
-          {/* Certifications */}
           <Section id="certifications" title="Certifications">
             <ul className="list-none ml-4 space-y-3 border-l border-gray-300 pl-4">
-              {/* Root: System Administrator */}
+              {/* CSA */}
               <li className="relative">
                 <span className="font-semibold">System Administrator</span>
                 <ul className="list-none ml-6 mt-2 space-y-2 border-l border-gray-200 pl-4">
@@ -276,7 +268,7 @@ Certifications: CSA, CAD, ITSM, CSM, SPM
                       whileHover={{ scale: 1.05, x: 3 }}
                       href="/ServiceNow-CSA.pdf"
                       download="ServiceNow-CSA.pdf"
-                      className="inline-flex items-center gap-1 text-sm px-3 py-1 rounded-full border border-gray-300 hover:bg-indigo-50 transition"
+                      className="inline-flex items-center gap-1 text-sm px-3 py-1 rounded-full border border-gray-300 hover:bg-gray-100 transition"
                       title="Download CSA Certificate"
                     >
                       <Download size={14} />
@@ -286,7 +278,7 @@ Certifications: CSA, CAD, ITSM, CSM, SPM
                 </ul>
               </li>
 
-              {/* Branch 1: Developer */}
+              {/* CAD */}
               <li className="relative">
                 <span className="font-semibold">Developer</span>
                 <ul className="list-none ml-6 mt-2 space-y-2 border-l border-gray-200 pl-4">
@@ -296,7 +288,7 @@ Certifications: CSA, CAD, ITSM, CSM, SPM
                       whileHover={{ scale: 1.05, x: 3 }}
                       href="/ServiceNow-CAD.pdf"
                       download="ServiceNow-CAD.pdf"
-                      className="inline-flex items-center gap-1 text-sm px-3 py-1 rounded-full border border-gray-300 hover:bg-indigo-50 transition"
+                      className="inline-flex items-center gap-1 text-sm px-3 py-1 rounded-full border border-gray-300 hover:bg-gray-100 transition"
                       title="Download CAD Certificate"
                     >
                       <Download size={14} />
@@ -306,7 +298,7 @@ Certifications: CSA, CAD, ITSM, CSM, SPM
                 </ul>
               </li>
 
-              {/* Branch 2: Implementation Specialist */}
+              {/* Implementation Specialist */}
               <li className="relative">
                 <span className="font-semibold">Implementation Specialist</span>
                 <ul className="list-none ml-6 mt-2 space-y-2 border-l border-gray-200 pl-4">
@@ -321,7 +313,7 @@ Certifications: CSA, CAD, ITSM, CSM, SPM
                         whileHover={{ scale: 1.05, x: 3 }}
                         href={`/${cert.file}`}
                         download={cert.file}
-                        className="inline-flex items-center gap-1 text-sm px-3 py-1 rounded-full border border-gray-300 hover:bg-indigo-50 transition"
+                        className="inline-flex items-center gap-1 text-sm px-3 py-1 rounded-full border border-gray-300 hover:bg-gray-100 transition"
                         title={`Download ${cert.short} Certificate`}
                       >
                         <Download size={14} />
@@ -334,56 +326,50 @@ Certifications: CSA, CAD, ITSM, CSM, SPM
             </ul>
           </Section>
 
-          {/* Education */}
           <Section id="education" title="Education">
             <div className="space-y-2">
               <p className="font-semibold text-indigo-700">
-                <a
-                  href="https://www.ceid.upatras.gr/en/home/"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <a 
+                  href="https://www.ceid.upatras.gr/en/home/" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
                   className="hover:underline"
                 >
                   Integrated MSc in Computer Engineering & Informatics
                 </a>
               </p>
               <p className="text-sm text-gray-600">
-                <a
-                  href="https://www.upatras.gr/en/"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <a 
+                  href="https://www.upatras.gr/en/" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
                   className="hover:underline"
                 >
                   University of Patras
-                </a>{" "}
-                | 2015 – 2021 | GPA: 6.62
+                </a> 
+                {" "} | 2015 – 2021 | GPA: 6.62
               </p>
               <ul className="list-disc ml-6 space-y-1">
-                <li className="text-gray-700">
-                  Focused on system design, software architecture, and programming languages.
-                </li>
-                <li className="text-gray-700">
-                  Completed projects involving automation, cloud computing, and software development.
-                </li>
+                <li className="text-gray-700">Focused on system design, software architecture, and programming languages.</li>
+                <li className="text-gray-700">Completed projects involving automation, cloud computing, and software development.</li>
               </ul>
             </div>
           </Section>
 
-          {/* Experience */}
           <Section id="experience" title="Professional Experience">
             <div className="space-y-5">
               {/* Job 1 */}
               <div>
                 <p className="font-semibold text-indigo-700 flex items-center gap-2">
                   <img
-                    src="/logos/performance-tech.png"
-                    alt="Performance Technologies Logo"
-                    className="w-5 h-5 object-contain"
-                  />
-                  <a
-                    href="https://www.performance.gr/en/"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                      src="/logos/performance-tech.png"
+                       alt="Performance Technologies Logo"
+                       className="w-5 h-5 object-contain"
+                   />
+                  <a 
+                    href="https://www.performance.gr/en/" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
                     className="hover:underline"
                   >
                     Performance Technologies S.A.
@@ -403,15 +389,15 @@ Certifications: CSA, CAD, ITSM, CSM, SPM
               {/* Job 2 */}
               <div>
                 <p className="font-semibold text-indigo-700 flex items-center gap-2">
-                  <img
+                  <img 
                     src="/logos/deloitte.png"
-                    alt="Deloitte Logo"
+                    alt="Deloitte Logo" 
                     className="w-5 h-5 object-contain"
                   />
-                  <a
-                    href="https://www.deloitte.com/"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <a 
+                    href="https://www.deloitte.com/" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
                     className="hover:underline"
                   >
                     Deloitte (DACC)
@@ -430,33 +416,20 @@ Certifications: CSA, CAD, ITSM, CSM, SPM
             </div>
           </Section>
 
-          {/* Skills */}
           <Section id="skills" title="Technical Skills">
             <div className="space-y-2 text-gray-700">
-              <div>
-                <strong>ServiceNow:</strong> ITSM, CSM, SPM, Application Development, UI/UX
-                Customization
-              </div>
-              <div>
-                <strong>Programming &amp; Scripting:</strong> JavaScript, Python, HTML5, CSS3, SQL
-              </div>
-              <div>
-                <strong>Tools &amp; Platforms:</strong> Git, Jenkins, VS Code, Eclipse
-              </div>
-              <div>
-                <strong>Methodologies:</strong> Agile/Scrum, ITIL Framework, DevOps Practices
-              </div>
+              <div><strong>ServiceNow:</strong> ITSM, CSM, SPM, Application Development, UI/UX Customization</div>
+              <div><strong>Programming & Scripting:</strong> JavaScript, Python, HTML5, CSS3, SQL</div>
+              <div><strong>Tools & Platforms:</strong> Git, Jenkins, VS Code, Eclipse</div>
+              <div><strong>Methodologies:</strong> Agile/Scrum, ITIL Framework, DevOps Practices</div>
             </div>
           </Section>
 
-          {/* Contact */}
           <Section id="contact" title="Contact">
             <div className="space-y-2 text-gray-700">
               <div>
                 <strong>Email:</strong>{" "}
-                <a href="mailto:panosgaz3@gmail.com" className="underline">
-                  panosgaz3@gmail.com
-                </a>
+                <a href="mailto:panosgaz3@gmail.com" className="underline">panosgaz3@gmail.com</a>
               </div>
               <div>
                 <strong>Phone:</strong>{" "}
@@ -465,11 +438,12 @@ Certifications: CSA, CAD, ITSM, CSM, SPM
             </div>
           </Section>
 
-          {/* --- AI Chat Component (optional) --- */}
+          {/* Optional AI Chat */}
           {/* <AIChat knowledge={knowledge} /> */}
         </main>
       </div>
     </>
   );
 }
+
 
