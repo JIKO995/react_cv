@@ -138,7 +138,7 @@ Certifications: CSA, CAD, ITSM, CSM, SPM
             aria-expanded={isOpen}
             aria-controls={`${id}-panel`}
           >
-            <h3 className="text-lg font-semibold text-indigo-800">{title}</h3>
+           <h2 className="text-lg font-semibold text-indigo-800">{title}</h2>
             <ChevronDown className={"transition-transform " + (isOpen ? "rotate-180" : "rotate-0")} />
           </button>
 
