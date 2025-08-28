@@ -43,18 +43,15 @@ Certifications: CSA, CAD, ITSM, CSM, SPM
   // IntersectionObserver to track active section
 useEffect(() => {
   const handleScroll = () => {
-    let current = sections[0].id; // default
-    const offset = 120; // distance from top for triggering active section
+    let current = sections[0].id; 
+    const offset = 120;
 
     for (let section of sections) {
       const el = document.getElementById(section.id);
-      if (el) {
-        const top = el.getBoundingClientRect().top;
-        if (top - offset <= 0) {
-          current = section.id;
-        } else {
-          break; // sections are in order, stop at first below offset
-        }
+      if (el && el.getBoundingClientRect().top - offset <= 0) {
+        current = section.id;
+      } else {
+        break;
       }
     }
 
@@ -62,7 +59,7 @@ useEffect(() => {
   };
 
   window.addEventListener("scroll", handleScroll);
-  handleScroll(); // initial call
+  handleScroll();
   return () => window.removeEventListener("scroll", handleScroll);
 }, [sections]);
 
