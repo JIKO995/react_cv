@@ -76,7 +76,10 @@ useEffect(() => {
 
   const Section = ({ id, title, children }) => {
     const isOpen = openSection === id;
-    const toggle = () => setOpenSection(isOpen ? null : id);
+    const toggle = () => {
+  setOpenSection(isOpen ? null : id);
+  setActiveSection(id); // update navbar highlight immediately
+};
 
     return (
       <motion.section
