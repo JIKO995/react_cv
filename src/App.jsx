@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Download, ChevronDown, Linkedin, Github } from "lucide-react";
 import { Helmet } from "react-helmet-async"; // ✅ Updated import
 import profilePic from "./unnamed (2).jpg";
-// import AIChat from "./AIChat";
+import AIChat from "./AIChat";
 
 export default function App() {
   const [openSection, setOpenSection] = useState("profile");
