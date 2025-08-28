@@ -293,9 +293,9 @@ Certifications: CSA, CAD, ITSM, CSM, SPM
                 className="w-28 h-28 rounded-full object-cover ring-4 ring-indigo-500/20 hover:scale-105 hover:shadow-lg transition-transform duration-300"
               />
               <div className="flex-1 space-y-2">
-                <h1 className="text-3xl font-bold text-gray-800 mb-2">
-  Panagiotis Gkantzos - ServiceNow Technical Consultant & Developer
-</h1>
+                <h1 className="text-2xl font-bold text-gray-800">Panagiotis Gkantzos</h1>
+                   <p className="text-indigo-600 font-medium">ServiceNow Technical Consultant & Developer</p>
+
                 <div className="flex flex-wrap gap-2 mt-1">
                   <a
                     href="https://www.linkedin.com/in/panagiotis-gkantzos-341909b5"
