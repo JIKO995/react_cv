@@ -262,7 +262,7 @@ Certifications: CSA, CAD, ITSM, CSM, SPM
             {/* CV button */}
             <a
               href="/cv.pdf"
-              download="CV.pdf"
+              download="cv.pdf"
               className="inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-full border border-gray-300 hover:bg-indigo-50 transition ml-3"
               title="Download CV as PDF"
             >
