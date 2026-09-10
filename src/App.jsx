@@ -399,6 +399,7 @@ Certifications: CSA, CAD, ITSM, CSM, SPM
                     { name: "Customer Service Management", file: "ServiceNow-CSM.pdf", short: "CSM" },
                     { name: "Strategic Portfolio Management", file: "ServiceNow-SPM.pdf", short: "SPM" },
                     { name: "Hardware Asset Management", file: "ServiceNow-HAM.pdf", short: "HAM" },
+                    { name: "Discovery", file: "ServiceNow-DF.pdf", short: "DF" },
                   ].map((cert) => (
                     <li key={cert.short} className="flex items-center gap-2">
                       Certified – {cert.name}
